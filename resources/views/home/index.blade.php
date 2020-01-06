@@ -43,7 +43,7 @@
                                     <figure>
                                         <div class="snipcart-item block" >
                                             <div class="snipcart-thumb" dir="rtl">
-                                                <a href="{!! route('product.show',$hot_product->id) !!}"><img width="150" height="150" title=" " alt=" " src="{!! !isset($hot_product->getPhotoAttribute()[0])? '': $hot_product->getPhotoAttribute()[0]->thumbnail !!}" /></a>
+                                                <a href="{!! route('product.show',$hot_product->id) !!}"><img width="150" height="150" title=" " alt=" " src="{!! !isset($hot_product->getPhotoAttribute()[0])? '': $hot_product->getPhotoAttribute()[0]->url !!}" /></a>
                                                 <p>{!! $hot_product->name !!}</p>
                                                 <h4>{!! $hot_product->price !!} ج.س</h4>
                                             </div>
