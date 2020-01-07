@@ -27,6 +27,7 @@
         "bootstrap-sass": "^3.4.1",
         "bootstrap-sass-loader": "^1.0.10",
         "flexslider": "^2.7.2",
+        "flickity": "^2.2.1",
         "font-awesome": "^4.7.0"
     }
 }

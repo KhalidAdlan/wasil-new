@@ -33,8 +33,13 @@
     <div class="top-brands">
         <div class="container">
             <h3>أفضل العروض</h3>
+            <div class="slider">
+           
+
+            @foreach ($hot_products->chunk(3) as $chunk)
+            <div class="slide">
             <div class="agile_top_brands_grids">
-                @foreach($hot_products as $hot_product)
+                @foreach($chunk as $hot_product)
                     <div class="col-md-3 top_brand_left" dir="rtl">
                         <div class="hover14 column">
                             <div class="agile_top_brand_left_grid">
@@ -43,7 +48,7 @@
                                     <figure>
                                         <div class="snipcart-item block" >
                                             <div class="snipcart-thumb" dir="rtl">
-                                                <a href="{!! route('product.show',$hot_product->id) !!}"><img width="150" height="150" title=" " alt=" " src="{!! !isset($hot_product->getPhotoAttribute()[0])? '': $hot_product->getPhotoAttribute()[0]->url !!}" /></a>
+                                                <a href="{!! route('product.show',$hot_product->id) !!}"><img width="150" height="150" title=" " alt=" " src="{!! !isset($hot_product->getPhotoAttribute()[0])? '/images/logo.jpeg': $hot_product->getPhotoAttribute()[0]->url !!}" /></a>
                                                 <p>{!! $hot_product->name !!}</p>
                                                 <h4>{!! $hot_product->price !!} ج.س</h4>
                                             </div>
@@ -56,7 +61,13 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+            @endforeach
+            </div>
+
+</div>
+
+            @endforeach
+          
 
                 <div class="clearfix"> </div>
             </div>
