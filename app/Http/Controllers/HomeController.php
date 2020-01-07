@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ProductCategory;
 use App\ProductTag;
+use App\Product;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,8 @@ class HomeController extends Controller
     public function index()
     {
         $hot_products = ProductTag::all()->first()->tagProducts()->get();
-        return view('home.index', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => []]);
+        $top_products = Product::paginate(9);
+
+        return view('home.index', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
     }
 }
