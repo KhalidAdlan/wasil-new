@@ -3,6 +3,10 @@
 Route::get('/', 'HomeController@index');
 Route::get('/product/{$id}', 'HomeController@showProduct')->name('product.show');
 Route::post('/product/{$id}', 'HomeController@addCart')->name('cart.add');
+Route::get('/terms', 'HomeController@terms')->name('terms');
+Route::get('/about-us', 'HomeController@about')->name('about');
+Route::get('/services', 'HomeController@services')->name('services');
+Route::get('/category/{id}', 'HomeController@category')->name('category');
 
 
 Route::get('/home', function () {

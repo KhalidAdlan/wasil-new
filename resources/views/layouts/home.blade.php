@@ -73,10 +73,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="w3ls_logo_products_left1">
             <ul class="special_items">
-                <li><a href="events.html">الشروط و الاحكام</a><i>\</i></li>
-                <li><a href="about.html">من نحن</a><i>\</i></li>
-                <li><a href="products.html">أفضل العروض</a><i>\</i></li>
-                <li><a href="services.html">خدماتنا</a></li>
+                <li><a href="{{route('terms')}}">الشروط و الاحكام</a><i>\</i></li>
+                <li><a href="{{route('about')}}">من نحن</a><i>\</i></li>
+                <li><a href="/">الرئيسية</a><i>\</i></li>
+                <li><a href="{{route('services')}}">خدماتنا</a></li>
             </ul>
         </div>
         <div class="w3ls_logo_products_left1">
@@ -108,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <ul class="nav navbar-nav nav_1">
                     
                    @foreach ($categories as $category)
-                    <li><a href="pet.html">{{$category->name}}</a></li>
+                    <li><a href="{{route('category',  $category->id )}}">{{$category->name}}</a></li>
                    @endforeach
                     
                 </ul>
@@ -146,11 +146,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div dir="rtl" class="col-md-3 w3_footer_grid">
             <h3>خريطة الموقع</h3>
             <ul class="w3_footer_grid_list">
-                <li><a href="events.html">Events</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="products.html">Best Deals</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="short-codes.html">Short Codes</a></li>
+                <li><a href="/">الرئيسية</a></li>
+                <li><a href="{{route('about')}}">من نحن</a></li>
+                <li><a href="{{route('terms')}}">الشروط و الأحكام</a></li>
+                <li><a href="{{route('services')}}">خدماتنا</a></li>
             </ul>
         </div>
         <div dir="rtl" class="col-md-3 w3_footer_grid">
