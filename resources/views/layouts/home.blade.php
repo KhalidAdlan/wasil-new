@@ -11,10 +11,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Grocery Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <meta name="keywords" content="Wasiil, Wasil, واصل " />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
         function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <meta name="_token" content="{{csrf_token()}}" />
+
     <!-- //for-mobile-apps -->
     <link rel="stylesheet" href="{!! asset('css/front.css') !!}">
     <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -41,7 +42,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <fieldset>
                 <input type="hidden" name="cmd" value="_cart" />
                 <input type="hidden" name="display" value="1" />
-                <input type="submit" name="submit" value="سلة مشترياتك        " class="button" />
+                <input type="submit" name="cart" value="سلة مشترياتك        " class="button" data-toggle="modal" data-target="#cartModal" ><span class="badge">
+                  @if(Session::has('cart'))
+                     {{count(Session::get('cart'))}}
+                  @endif
+                </span></input>
             </fieldset>
         </form>
     </div>
@@ -170,6 +175,85 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                
             </ul>
         </div>
+
+        <!-- The Modal -->
+<div class="modal" id="cartModal" dir="rtl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">سلة مشترياتك</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">المنتج</th>
+              <th scope="col">السعر</th>
+              <th scope="col"></th>
+              <th scope="col">الكمية</th>
+              <th scope="col"></th>
+
+              <th scope="col">المجموع</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+          @if(Session::has('cart'))    
+          @foreach(Session::get('cart') as $cartItem)
+
+            <tr>
+              <td class="w-25">
+                <img src="{{$cartItem['photo']}}" class="img-fluid img-thumbnail" alt="Wasiil">
+              </td>
+              <td>{{$cartItem['name']}}</td>
+              <td>{{$cartItem['price']}}</td>
+              <td>
+                  <form method="POST" target="">
+                   {{csrf_field()}}
+                  <input type="submit" class="btn btn-default" value="+"/>
+                  </form>
+              </td>
+              <td class="qty">
+              <input style="max-width: 2rem;" type="text" class="form-control" id="input1" readonly value="{{$cartItem['quantity']}}"></td>
+              <td>
+                  <form method="POST" target="">
+                   {{csrf_field()}}
+                  <input type="submit" class="btn btn-default" value="-"/>
+                  </form>
+              </td>
+
+              <td>{{$cartItem['price'] * $cartItem['quantity']}}</td>
+              <td>
+                <a href="#" class="btn btn-danger btn-sm">
+                  <i class="fa fa-times"></i>
+                </a>
+              </td>
+            </tr>
+            @endforeach
+            @endif
+
+          </tbody>
+        </table> 
+        <div class="d-flex justify-content-end">
+          <h5> المجموع<span class="price text-success"></span></h5>
+        </div>
+      
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">اغلاق</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
         <div dir="rtl" class="col-md-3 w3_footer_grid">
             <h3>منشورات الفيسبوك</h3>
             <div class="fb-page" data-href="https://web.facebook.com/Wasil-110526097088344/" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/Wasil-110526097088344/" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/Wasil-110526097088344/">Wasil</a></blockquote></div>

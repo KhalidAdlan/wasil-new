@@ -66,6 +66,15 @@ class HomeController extends Controller
         return view('home.services', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
     }
 
+
+    public function showProduct($pid)
+    {
+      $product = Product::find($pid);
+
+       return view('home.product', ['categories'=> ProductCategory::all(),'product' => $product]);
+
+    }
+
     public function category($cid)
     {
        $category = ProductCategory::findOrFail($cid);
@@ -75,4 +84,59 @@ class HomeController extends Controller
       
         return view('home.category', ['categories'=> ProductCategory::all(),'top_products' => $top_products]);
     }
+
+    public function addToCart($id)
+    {
+        $product = Product::find($id);
+ 
+        if(!$product) {
+ 
+            abort(404);
+ 
+        }
+ 
+        $cart = session()->get('cart');
+ 
+        // if cart is empty then this the first product
+        if(!$cart) {
+ 
+            $cart = [
+                    $id => [
+                        "name" => $product->name,
+                        "quantity" => 1,
+                        "price" => $product->price,
+                        "photo" => $product->photo
+                    ]
+            ];
+ 
+            session()->put('cart', $cart);
+ 
+            return redirect()->back()->with('success', '!لقد تمت الاضافة لسلة مشترياتك بنجاح');
+        }
+ 
+        // if cart not empty then check if this product exist then increment quantity
+        if(isset($cart[$id])) {
+ 
+            $cart[$id]['quantity']++;
+ 
+            session()->put('cart', $cart);
+ 
+            return redirect()->back()->with('success', '!لقد تمت الاضافة لسلة مشترياتك بنجاح');
+ 
+        }
+ 
+        // if item not exist in cart then add to cart with quantity = 1
+        $cart[$id] = [
+            "name" => $product->name,
+            "quantity" => 1,
+            "price" => $product->price,
+            "photo" => $product->getPhotoAttribute()[0]->thumbnail
+        ];
+ 
+        session()->put('cart', $cart);
+ 
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+
 }

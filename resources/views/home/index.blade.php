@@ -1,5 +1,12 @@
 @extends('layouts.home')
 @section('content')
+
+@if(Session::has('success'))
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{Session::get('success')}}</strong> 
+</div>
+@endif
     <section class="slider">
         <div class="flexslider">
             <ul class="slides">
@@ -53,7 +60,11 @@
                                                 <h4>{!! $hot_product->price !!} ج.س</h4>
                                             </div>
                                             <div class="snipcart-details top_brand_home_details">
-                                                <a class="btn btn-primary" href="{!! route('cart.add',$hot_product->id) !!}">اضافة للسلة</a>
+                                            <form method="post" action="{{route('cart.add',$hot_product->id)}}">
+                                               {{csrf_field()}}
+                                              <input type="submit" value="اضافة للسلة" class="btn btn-primary">
+                                            </input>
+                                            </form>
                                             </div>
                                         </div>
                                     </figure>

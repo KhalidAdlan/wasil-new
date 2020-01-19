@@ -1,8 +1,8 @@
 <?php
 
 Route::get('/', 'HomeController@index');
-Route::get('/product/{$id}', 'HomeController@showProduct')->name('product.show');
-Route::post('/product/{$id}', 'HomeController@addCart')->name('cart.add');
+Route::post('/cart/{id}', 'HomeController@addToCart')->name('cart.add');
+Route::get('/product/{id}', 'HomeController@showProduct')->name('product.show');
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/about-us', 'HomeController@about')->name('about');
 Route::get('/services', 'HomeController@services')->name('services');
