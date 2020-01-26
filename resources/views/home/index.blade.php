@@ -7,6 +7,13 @@
   <strong>{{Session::get('success')}}</strong> 
 </div>
 @endif
+
+@if(isset($success))
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{$success}}</strong> 
+</div>
+@endif
     <section class="slider">
         <div class="flexslider">
             <ul class="slides">
@@ -102,8 +109,11 @@
                                                 <h4>{!! $top_product->price !!} ج.س</h4>
                                             </div>
                                             <div class="snipcart-details top_brand_home_details">
-                                                <a class="btn btn-primary" href="{!! route('cart.add',$top_product->id) !!}">اضافة للسلة</a>
-                                            </div>
+                                            <form method="post" action="{{route('cart.add',$top_product->id)}}">
+                                               {{csrf_field()}}
+                                              <input type="submit" value="اضافة للسلة" class="btn btn-primary">
+                                            </input>
+                                            </form>                                            </div>
                                         </div>
                                     </figure>
                                 </div>

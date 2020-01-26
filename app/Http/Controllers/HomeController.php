@@ -10,6 +10,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 class HomeController extends Controller
 {
     /**
@@ -85,6 +86,87 @@ class HomeController extends Controller
         return view('home.category', ['categories'=> ProductCategory::all(),'top_products' => $top_products]);
     }
 
+
+    public function updateCart(Request $request)
+    {
+        $id = $request->pid;
+        $newQty = $request->qty;
+        $cart = session()->get('cart');
+        $cart[$id]['quantity'] = $newQty;
+        session()->put('cart', $cart);
+
+        $message = "Success";
+
+        return $message;
+
+    }
+
+    public function getCustomerInfo()
+    {
+        $hot_products = ProductTag::all()->first()->tagProducts()->get();
+        $top_products = Product::paginate(9);
+
+        return view('home.customer-info', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
+    
+    }
+
+   
+    public function storeCustomer(Request $request)
+    {
+        $name = $request->name;
+        $phone = $request->phone;
+        $area = $request->area;
+        $address = $request->address;
+
+        if(!isset($name))
+        return redirect()->back()->with('error', '');
+
+        if(!isset($phone))
+        return redirect()->back()->with('error', '');
+
+        if(!isset($area))
+        return redirect()->back()->with('error', '');
+
+        if(!isset($address))
+        return redirect()->back()->with('error', '');
+
+        $customer = [
+            "name"    => $name,
+            "phone"   => $phone,
+            "area"    => $area,
+            "address" => $address
+        ];
+
+        $total = 0;
+
+        foreach(session()->get('cart') as $item)
+        {
+            $total += $item['quantity'] * $item['price'];
+        }
+
+        $delivery = 100;
+
+        if($area=="الولايات")
+        $delivery = 300;
+
+        $grandTotal = $total + $delivery;
+
+        $totals = [
+            "total"      => $total,
+            "delivery"   => $delivery,
+            "grandTotal" => $grandTotal
+        ];
+
+        session()->put('customer', $customer);
+
+        $hot_products = ProductTag::all()->first()->tagProducts()->get();
+
+        return view('home.invoice', ['totals' =>$totals, 'categories'=> ProductCategory::all(), 'hot_products' => $hot_products]);
+    
+
+        
+    }
+
     public function addToCart($id)
     {
         $product = Product::find($id);
@@ -102,10 +184,11 @@ class HomeController extends Controller
  
             $cart = [
                     $id => [
+                        "id"   => $id,
                         "name" => $product->name,
                         "quantity" => 1,
                         "price" => $product->price,
-                        "photo" => $product->photo
+                        "photo" => $product->getPhotoAttribute()[0]->thumbnail
                     ]
             ];
  
@@ -127,6 +210,7 @@ class HomeController extends Controller
  
         // if item not exist in cart then add to cart with quantity = 1
         $cart[$id] = [
+            "id"   => $id,
             "name" => $product->name,
             "quantity" => 1,
             "price" => $product->price,

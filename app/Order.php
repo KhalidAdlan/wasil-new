@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -32,6 +33,16 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public static function generateValidInvoiceNumber()
+    {
+       $lastOrder = DB::table('orders')->orderBy('invoice_number', 'desc')->first();
+       if(!isset($lastOrder))
+         return 1;
+
+       $invoiceNumber = $lastOrder->invoice_number + 1;
+       return $invoiceNumber;
     }
 
     public function product()

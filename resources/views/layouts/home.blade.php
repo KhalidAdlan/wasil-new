@@ -42,11 +42,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <fieldset>
                 <input type="hidden" name="cmd" value="_cart" />
                 <input type="hidden" name="display" value="1" />
-                <input type="submit" name="cart" value="سلة مشترياتك        " class="button" data-toggle="modal" data-target="#cartModal" ><span class="badge">
+                <input type="submit" name="cart" value="سلة مشترياتك        " class="button" data-toggle="modal" data-target="#cartModal" >
                   @if(Session::has('cart'))
+                  <span class="badge">
                      {{count(Session::get('cart'))}}
+                  </span>
                   @endif
-                </span></input>
+            </input>
             </fieldset>
         </form>
     </div>
@@ -247,6 +249,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
       <!-- Modal footer -->
       <div class="modal-footer">
+         <a class="btn btn-success" href="{{route('customer.info')}}">تأكيد</a> 
         <button type="button" class="btn btn-danger" data-dismiss="modal">اغلاق</button>
       </div>
 

@@ -7,6 +7,9 @@ Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/about-us', 'HomeController@about')->name('about');
 Route::get('/services', 'HomeController@services')->name('services');
 Route::get('/category/{id}', 'HomeController@category')->name('category');
+Route::get('/cart/customer', 'HomeController@getCustomerInfo')->name('customer.info');
+Route::post('/customer', 'HomeController@storeCustomer')->name('customer.store');
+Route::post('/order/place', 'OrdersController@placeOrder')->name('place');
 
 
 Route::get('/home', function () {
