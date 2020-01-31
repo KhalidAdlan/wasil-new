@@ -6,7 +6,8 @@
 <div class="paper">
   <div>
     <h4>السيد(ة)/ {{session()->get('customer')['name']}}</h4>
-    <h6>{{session()->get('customer')['area']}} | {{session()->get('customer')['address']}}</h6>
+    <h6>{{session()->get('customer')['state']}} | {{session()->get('customer')['area']}} | {{session()->get('customer')['address']}}</h6>
+    <h6>{{session()->get('customer')['phone']}} | {{session()->get('customer')['phone2']}}</h6>
     <hr/>
   </div>
   <div class="card">

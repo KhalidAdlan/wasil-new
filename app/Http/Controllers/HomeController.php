@@ -87,18 +87,33 @@ class HomeController extends Controller
     }
 
 
+    public function removeCartItem(Request $request)
+    {
+       $id = $request->pid;
+       $cart = session()->get('cart');
+       $cartItem =  $cart[$id];
+
+       unset($cart[$id]);
+
+       session()->put('cart',$cart);
+       
+       return response()->json(['success' => 'Item successfully removed',  'item' => $cartItem]);
+
+    }
+
     public function updateCart(Request $request)
     {
         $id = $request->pid;
         $newQty = $request->qty;
         $cart = session()->get('cart');
-        $cart[$id]['quantity'] = $newQty;
+        $cartItem =  $cart[$id];
+        $cartItem['quantity'] = $newQty;
+    
+        $cart[$id] = $cartItem;
         session()->put('cart', $cart);
 
-        $message = "Success";
 
-        return $message;
-
+        return response()->json(['success'=>'Data is successfully added', 'item' => $cartItem]);
     }
 
     public function getCustomerInfo()
@@ -113,9 +128,12 @@ class HomeController extends Controller
    
     public function storeCustomer(Request $request)
     {
+
         $name = $request->name;
         $phone = $request->phone;
-        $area = $request->area;
+        $phone2 = $request->phone-2;
+        $state = $request->radio;
+        $area = $request->select;
         $address = $request->address;
 
         if(!isset($name))
@@ -130,9 +148,32 @@ class HomeController extends Controller
         if(!isset($address))
         return redirect()->back()->with('error', '');
 
+        $stateText = '';
+
+        switch($state)
+        {
+            case 'bhri':
+            $stateText = 'بحري';
+            break;
+
+            case 'khrt':
+            $stateText = 'الخرطوم';
+            break;
+
+            case 'omdur':
+            $stateText = 'امدرمان';
+            break;
+
+            case 'other':
+            $stateText = 'الولايات';
+            break;
+        }
+
         $customer = [
             "name"    => $name,
             "phone"   => $phone,
+            "phone2"  => $phone2,
+            "state"   => $stateText,
             "area"    => $area,
             "address" => $address
         ];
@@ -146,8 +187,19 @@ class HomeController extends Controller
 
         $delivery = 100;
 
-        if($area=="الولايات")
-        $delivery = 300;
+        if($state=="other")
+        {
+            $delivery = 300;
+
+            if($total >= 6000)
+             $delivery = 600;
+
+            if($total >= 12000)
+             $delivery = 900;
+
+            if($total >= 18000)
+             $delivery = 1200; 
+        }
 
         $grandTotal = $total + $delivery;
 

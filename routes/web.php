@@ -10,6 +10,8 @@ Route::get('/category/{id}', 'HomeController@category')->name('category');
 Route::get('/cart/customer', 'HomeController@getCustomerInfo')->name('customer.info');
 Route::post('/customer', 'HomeController@storeCustomer')->name('customer.store');
 Route::post('/order/place', 'OrdersController@placeOrder')->name('place');
+Route::get('/cart/update', 'HomeController@updateCart')->name('cart.update');
+Route::get('/cart/remove', 'HomeController@removeCartItem')->name('cart.remove');
 
 
 Route::get('/home', function () {

@@ -21,6 +21,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>
 
@@ -44,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <input type="hidden" name="display" value="1" />
                 <input type="submit" name="cart" value="سلة مشترياتك        " class="button" data-toggle="modal" data-target="#cartModal" >
                   @if(Session::has('cart'))
-                  <span class="badge">
+                  <span id="cartCount" class="badge">
                      {{count(Session::get('cart'))}}
                   </span>
                   @endif
@@ -196,9 +197,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
               <th scope="col"></th>
               <th scope="col">المنتج</th>
               <th scope="col">السعر</th>
-              <th scope="col"></th>
               <th scope="col">الكمية</th>
-              <th scope="col"></th>
 
               <th scope="col">المجموع</th>
               <th scope="col"></th>
@@ -208,34 +207,75 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           @if(Session::has('cart'))    
           @foreach(Session::get('cart') as $cartItem)
 
-            <tr>
+            <tr id="item{{$cartItem['id']}}">
               <td class="w-25">
                 <img src="{{$cartItem['photo']}}" class="img-fluid img-thumbnail" alt="Wasiil">
               </td>
               <td>{{$cartItem['name']}}</td>
               <td>{{$cartItem['price']}}</td>
-              <td>
-                  <form method="POST" target="">
-                   {{csrf_field()}}
-                  <input type="submit" class="btn btn-default" value="+"/>
-                  </form>
-              </td>
+              
               <td class="qty">
-              <input style="max-width: 2rem;" type="text" class="form-control" id="input1" readonly value="{{$cartItem['quantity']}}"></td>
-              <td>
-                  <form method="POST" target="">
-                   {{csrf_field()}}
-                  <input type="submit" class="btn btn-default" value="-"/>
-                  </form>
+              <input hidden type="text" value="{{$cartItem['id']}}" id="qty{{$cartItem['id']}}">
+              <input style="max-width: 5rem;" type="text" class="form-control" id="input{{$cartItem['id']}}"  value="{{$cartItem['quantity']}}">
+            
               </td>
+             
 
-              <td>{{$cartItem['price'] * $cartItem['quantity']}}</td>
+              <td id="total{{$cartItem['id']}}">{{$cartItem['price'] * $cartItem['quantity']}}</td>
               <td>
-                <a href="#" class="btn btn-danger btn-sm">
+                <button id="rm{{$cartItem['id']}}" class="btn btn-danger btn-sm">
                   <i class="fa fa-times"></i>
-                </a>
+                </button>
               </td>
             </tr>
+
+            <script>
+
+  $('#rm{{$cartItem["id"]}}').click(function(){
+
+
+    $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                  }
+              });
+           jQuery.ajax({
+                  url: "{{ route('cart.remove') }}?pid="+jQuery('#qty{{$cartItem["id"]}}').val(),
+                  method: 'GET',
+                 
+                  success: function(result){
+                     var item = result.item;
+                     $('#item'+item.id).remove();
+                     var cartCount = eval($('#cartCount').html());
+                     cartCount = cartCount - 1;
+                     $('#cartCount').html(cartCount);
+
+                  }});
+    
+   });
+   
+
+
+   $('#input{{$cartItem["id"]}}').change(function(){
+
+
+    $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                  }
+              });
+           jQuery.ajax({
+                  url: "{{ route('cart.update') }}?qty="+jQuery('#input{{$cartItem["id"]}}').val()+"&pid="+jQuery('#qty{{$cartItem["id"]}}').val(),
+                  method: 'GET',
+                 
+                  success: function(result){
+                     var item = result.item;
+                     var total = item.quantity * item.price;
+                     $('#total'+item.id).html(total);
+                  }});
+                
+                });
+</script>
             @endforeach
             @endif
 
@@ -285,6 +325,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <script src="{!! asset('js/front.js') !!}"></script>
 <div id="fb-root"></div>
+
+
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=478121079233575&autoLogAppEvents=1"></script>
 
 </body>
