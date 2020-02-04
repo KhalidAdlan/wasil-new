@@ -15,8 +15,18 @@ class OrdersController extends Controller
 {
     public function placeOrder(){
 
+        
+        $salesmanId = null;
+        $salesman = session()->get('salesman');
+
+        if(isset($salesman))
+        {
+            $salesmanId = $salesman->id;
+        }
+
         $cart = session()->get('cart');
         $customerInfo = session()->get('customer');
+
 
         if(!isset($cart) || !isset($customerInfo ))
            return redirect()->back();  //change this
@@ -30,7 +40,8 @@ class OrdersController extends Controller
                 'customer_id' => $customer->id,
                 'status'    => 'جديد',
                 'invoice_number' => $invoiceNumber,
-                'product_id'    => $item['id']
+                'product_id'    => $item['id'],
+                'salesmen_id'  => $salesmanId
             ];
 
            Order::create($orderEntry);

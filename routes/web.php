@@ -12,6 +12,10 @@ Route::post('/customer', 'HomeController@storeCustomer')->name('customer.store')
 Route::post('/order/place', 'OrdersController@placeOrder')->name('place');
 Route::get('/cart/update', 'HomeController@updateCart')->name('cart.update');
 Route::get('/cart/remove', 'HomeController@removeCartItem')->name('cart.remove');
+Route::get('/portal/login', 'SalesPersonsController@getLoginForm')->name('portal.login');
+Route::post('/portal/login', 'SalesPersonsController@attemptLogin')->name('portal.login.submit');
+Route::get('/portal', 'SalesPersonsController@getSalesmanPortal')->name('portal');
+Route::get('/portal/logout', 'SalesPersonsController@logout')->name('portal.logout');
 
 
 Route::get('/home', function () {

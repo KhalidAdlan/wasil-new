@@ -60,7 +60,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="mega-dropdown-menu">
                     <div class="w3ls_vegetables">
                         <ul class="dropdown-menu drp-mnu">
-                            <li><a href="login.html">Login</a></li>
+                           @if(Session::has('salesman')) 
+                            <li><a href="{{route('portal')}}">{{Session::get('salesman')->name}}</a></li>
+                            <li><hr></li>
+                            <li><a href="{{route('portal.logout')}}">تسجيل الخروج</a></li>
+                           @else
+                            <li><a href="{{route('portal.login')}}">تسجيل الدخول</a></li>
+                           @endif
                         </ul>
                     </div>
                 </div>
