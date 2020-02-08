@@ -10,7 +10,11 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Customer;
+use App\Order;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class SalesPersonsController extends Controller
 {
@@ -62,12 +66,19 @@ class SalesPersonsController extends Controller
         return redirect('/');
     }
 
-    public function getSalesmanPortal()
+    public function getSalesmanPortal(Request $request)
     {
         $hot_products = ProductTag::all()->first()->tagProducts()->get();
         $top_products = Product::paginate(9);
+       // $query = Order::with(['customer', 'product', 'salesmen'])->select(->where('salesmen.id','=',session()->get('salesman')->id);
 
-        return view('home.portal', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
+        $orders = Order::with(['customer', 'product'])->where('salesmen_id','=',session()->get('salesman')->id)->orderBy('invoice_number','desc')->get()->groupBy('invoice_number');
+
+        
+
+        
+
+        return view('home.portal', ['orders'=> $orders,'categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
  
     }
 }

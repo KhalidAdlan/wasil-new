@@ -1,9 +1,6 @@
 @extends('layouts.admin')
 @section('content')
 @can('order_create')
-
-
-
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route("admin.orders.create") }}">
@@ -24,7 +21,9 @@
                     <th width="10">
 
                     </th>
-                    
+                    <th>
+                        {{ trans('cruds.order.fields.id') }}
+                    </th>
                     <th>
                         {{ trans('cruds.order.fields.invoice_number') }}
                     </th>
@@ -44,13 +43,10 @@
                         {{ trans('cruds.product.fields.price') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.quantity') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.order.fields.salesmen') }}
                     </th>
                     <th>
-                        {{ trans('cruds.salesman.fields.created_at') }}
+                        {{ trans('cruds.salesman.fields.phone') }}
                     </th>
                     <th>
                         &nbsp;
@@ -100,55 +96,30 @@
 @endcan
 
   let dtOverrideGlobals = {
-    buttons: dtButtons,
+    
     processing: true,
-    serverSide: true,
+    serverSide: false,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.orders.index') }}",
+    ajax: "{{ route('admin.orders.report') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
+{ data: 'id', name: 'id' },
 { data: 'invoice_number', name: 'invoice_number' },
 { data: 'status', name: 'status' },
 { data: 'customer_name', name: 'customer.name' },
 { data: 'customer.phone', name: 'customer.phone' },
 { data: 'product_name', name: 'product.name' },
 { data: 'product.price', name: 'product.price' },
-{ data: 'quantity', name: 'quantity' },
-
-{ data: 'salesmen_name', name: 'salesmen.name' , render: function(data){
-    if(data != '')
-    {
-        var data     = data.replace( /&quot;/g, '"' ),
-    jsonData = jQuery.parseJSON( data );
-
-      
-
-        
-    return "<a href='"+jsonData.id+"'>" + jsonData.name + "</a>";
-
-    }
-    else
-    {
-        return '';
-    }
-   
-}},
-{ data: 'created_at', name: 'created_at' },
+{ data: 'salesmen_name', name: 'salesmen.name' },
+{ data: 'salesmen.phone', name: 'salesmen.phone' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     order: [[ 1, 'desc' ]],
     pageLength: 100,
     rowGroup: {
-            dataSrc: 'invoice_number',
-            startRender: function ( rows, group ) {
-                pickupBtn = "  <a class='btn btn-success' href='#'>Pickup</a>";
-                cancelBtn = "  <a class='btn btn-danger' href='#'>Cancel</a>";
-                showBtn = "  <a class='btn btn-primary' href='#'>Show</a>";
-
-            return "<span class='invoice'>"+group +"</span> "+pickupBtn+" "+showBtn+" "+cancelBtn;
-        }
-        }
+            dataSrc: 'invoice_number'
+        },
   };
   $('.datatable-Order').DataTable(dtOverrideGlobals);
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){

@@ -18,28 +18,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <!-- //for-mobile-apps -->
     <link rel="stylesheet" href="{!! asset('css/front.css') !!}">
-    <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Amiri&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  
+    
+    
 
 </head>
 
 <body>
 <!-- header -->
 <div class="agileits_header">
-    <div class="w3l_offers">
-        <a href="products.html">! عروض اليوم الخاصة </a>
+    <div class="w3l_offers" >
+        <a href="/">! عروض اليوم الخاصة </a>
     </div>
     <div class="w3l_search">
-        <form action="#" method="post">
+        <form action="{{route('search')}}" method="GET">
           <input type="submit" value=" ">
-            <input type="text" name="Product" value="... أبحث في واصل " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
+            <input type="text" name="keyword" value="... أبحث في واصل " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '... أبحث في واصل';}" required="">
             
         </form>
     </div>
     <div class="product_list_header">
-        <form action="#" method="post" class="last">
+        <form  class="last">
             <fieldset>
                 <input type="hidden" name="cmd" value="_cart" />
                 <input type="hidden" name="display" value="1" />
@@ -74,7 +77,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </ul>
     </div>
     <div class="w3l_header_right1">
-        <h2><a href="mail.html">اتصل بنا</a></h2>
+        <h2><a href="/">اتصل بنا</a></h2>
     </div>
     <div class="clearfix"> </div>
 </div>
@@ -95,8 +98,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="w3ls_logo_products_left1">
             <ul class="phone_email">
-                <li><i class="fa fa-phone" aria-hidden="true"></i>(+0123) 234 567</li>
-                <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">store@wasil.com</a></li>
+                <li><i class="fa fa-phone" aria-hidden="true"></i>+249 123801680</li>
+                <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:info@wasiil.net">info@wasiil.net</a></li>
             </ul>
         </div>
         <div class="clearfix"> </div>
@@ -170,8 +173,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h3>اتصل بنا</h3>
             <ul class="w3_footer_grid_list">
                 <li></li>
-                <li ><i class="fa fa-phone" aria-hidden="true"></i>  <a>(+0123) 234 567</a></li>
-                <li><i class="fa fa-envelope-o" aria-hidden="true"></i>  <a href="mailto:store@grocery.com">store@wasil.com</a></li>
+                <li ><i class="fa fa-phone" aria-hidden="true"></i>  <a>+249 123801680</a></li>
+                <li><i class="fa fa-envelope-o" aria-hidden="true"></i>  <a href="mailto:info@wasiil.net">info@wasiil.net</a></li>
             
             </ul>
         </div>
@@ -179,7 +182,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h3>ماذا لدينا؟</h3>
             <ul class="w3_footer_grid_list">
                   @foreach ($categories as $category)
-                    <li><a href="pet.html">{{$category->name}}</a></li>
+                    <li><a href="{{route('category',  $category->id )}}">{{$category->name}}</a></li>
                    @endforeach
                
             </ul>
@@ -312,20 +315,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
            
             <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
                 <div class="w3_footer_grid_bottom">
-                    <h5>connect with us</h5>
+                    <h5>تواصل معنا</h5>
                     <ul class="agileits_social_icons">
-                        <li><a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="google"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                        <li><a href="https://web.facebook.com/Wasil-110526097088344/" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        
+                        
+                        <li><a href="https://www.instagram.com/wasil_store/" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>
             <div class="clearfix"> </div>
         </div>
         <div class="wthree_footer_copy">
-            <p>© 2016 Wasiil. All rights reserved</p>
+            <p>© 2016 Wasiil. جميع الحقوق محفوظة</p>
         </div>
     </div>
 </div>

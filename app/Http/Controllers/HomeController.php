@@ -78,12 +78,12 @@ class HomeController extends Controller
 
     public function category($cid)
     {
-       $category = ProductCategory::findOrFail($cid);
-        //$products_collection = $category->categoryProducts()->get();
+        $category = ProductCategory::findOrFail($cid);
         $top_products = $category->categoryProducts()->paginate(9);
        
-      
-        return view('home.category', ['categories'=> ProductCategory::all(),'top_products' => $top_products]);
+        $message = $category->name;
+
+        return view('home.category', ['message' => $message,'categories'=> ProductCategory::all(),'top_products' => $top_products]);
     }
 
 
@@ -219,6 +219,36 @@ class HomeController extends Controller
         
     }
 
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+       $top_products = Product::query()
+        ->where('name', 'LIKE', "%{$keyword}%") 
+        ->orWhere('description', 'LIKE', "%{$keyword}%") 
+        ->paginate(9);
+
+        $message = null;
+        $error = null;
+
+        if(count($top_products) > 0)
+        {
+            $message = "وجدنا ". count($top_products) . "نتيجة عن '" .$keyword ."'";
+        }
+        else{
+            $error = "لا توجد نتائج للبحث";
+
+        }
+
+
+
+
+
+        return view('home.category', ['error'=> $error,'message' => $message,'categories'=> ProductCategory::all(),'top_products' => $top_products]);
+
+    }
+
+
+
     public function addToCart($id)
     {
         $product = Product::find($id);
@@ -236,11 +266,11 @@ class HomeController extends Controller
  
             $cart = [
                     $id => [
-                        "id"   => $id,
-                        "name" => $product->name,
+                        "id"       => $id,
+                        "name"     => $product->name,
                         "quantity" => 1,
-                        "price" => $product->price,
-                        "photo" => $product->getPhotoAttribute()[0]->thumbnail
+                        "price"    => $product->price,
+                        "photo"    => $product->getPhotoAttribute()[0]->thumbnail
                     ]
             ];
  
@@ -262,16 +292,16 @@ class HomeController extends Controller
  
         // if item not exist in cart then add to cart with quantity = 1
         $cart[$id] = [
-            "id"   => $id,
-            "name" => $product->name,
+            "id"       => $id,
+            "name"     => $product->name,
             "quantity" => 1,
-            "price" => $product->price,
-            "photo" => $product->getPhotoAttribute()[0]->thumbnail
+            "price"    => $product->price,
+            "photo"    => $product->getPhotoAttribute()[0]->thumbnail
         ];
  
         session()->put('cart', $cart);
  
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+        return redirect()->back()->with('success', '!لقد تمت الاضافة لسلة مشترياتك بنجاح');
     }
 
 

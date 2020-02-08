@@ -117,6 +117,7 @@ return [
             'description_helper' => '',
             'price'              => 'Price',
             'price_helper'       => '',
+            'quantity'           => 'Quantity',
             'category'           => 'Categories',
             'category_helper'    => '',
             'tag'                => 'Tags',
@@ -208,6 +209,7 @@ return [
     'order'             => [
         'title'          => 'Orders',
         'title_singular' => 'Order',
+        'report'         => 'Report',
         'fields'         => [
             'id'                    => 'ID',
             'id_helper'             => '',

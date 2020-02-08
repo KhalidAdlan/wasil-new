@@ -172,8 +172,9 @@
                         </a>
                         <ul class="nav nav-treeview">
                             @can('order_access')
+                              
                                 <li class="nav-item">
-                                    <a href="{{ route("admin.orders.index") }}" class="nav-link {{ request()->is('admin/orders') || request()->is('admin/orders/*') ? 'active' : '' }}">
+                                    <a href="{{ route("admin.orders.index") }}" class="nav-link {{ request()->is('admin/orders') ? 'active' : '' }}">
                                         <i class="fa-fw fas fa-luggage-cart">
 
                                         </i>

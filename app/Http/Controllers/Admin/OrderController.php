@@ -23,6 +23,7 @@ class OrderController extends Controller
             $query = Order::with(['customer', 'product', 'salesmen'])->select(sprintf('%s.*', (new Order)->table));
             $table = Datatables::of($query);
 
+
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
@@ -64,12 +65,18 @@ class OrderController extends Controller
             $table->editColumn('product.price', function ($row) {
                 return $row->product ? (is_string($row->product) ? $row->product : $row->product->price) : '';
             });
-            $table->addColumn('salesmen_name', function ($row) {
-                return $row->salesmen ? $row->salesmen->name : '';
+
+            $table->editColumn('quantity', function ($row) {
+                return $row->quantity ? $row->quantity : "";
             });
 
-            $table->editColumn('salesmen.phone', function ($row) {
-                return $row->salesmen ? (is_string($row->salesmen) ? $row->salesmen : $row->salesmen->phone) : '';
+            $table->addColumn('salesmen_name', function ($row) {
+
+                return $row->salesmen ? json_encode($row->salesmen,JSON_UNESCAPED_UNICODE): '';
+            });
+
+            $table->editColumn('created_at', function ($row) {
+                return $row->created_at ? \Carbon\Carbon::createFromTimeStamp(strtotime($row->created_at))->diffForHumans() : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'customer', 'product', 'salesmen']);
@@ -146,4 +153,7 @@ class OrderController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    
+    
 }

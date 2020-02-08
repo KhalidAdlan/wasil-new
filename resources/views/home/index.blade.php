@@ -40,21 +40,32 @@
     <!-- banner -->
     <div class="container-fluid">
         <img src="/images/wasil-banner.webp">
-        <div class="centered">Centered</div>
+        <div class="centered">
+            
+     متعة التسوق مع واصل 
+     
+    </div>
 
     </div>
+
+    
    
     <div class="top-brands">
+    
         <div class="container">
             <h3>أفضل العروض</h3>
-            <div class="slider2">
-           
+            <br>
+            <div class="">
+  
+  <div class="row">
+    <div class="col-md-10">
+      <div class="carousel slide multi-item-carousel" id="theCarousel">
+        <div class="carousel-inner">
 
-            @foreach ($hot_products->chunk(3) as $chunk)
-            <div class="slide2">
-            <div class="agile_top_brands_grids">
-                @foreach($chunk as $hot_product)
-                    <div class="col-md-3 top_brand_left" dir="rtl">
+          @for(  $i = 0; $i< count($hot_products); $i++)
+          <div class="item {{$i == 0? 'active' : ''}}">
+            <div class="col-md-4">
+            <div class=" top_brand_left" dir="rtl">
                         <div class="hover14 column">
                             <div class="agile_top_brand_left_grid">
                                 <div class="tag"><img src="images/tag.png" alt=" " class="img-responsive" /></div>
@@ -62,14 +73,14 @@
                                     <figure>
                                         <div class="snipcart-item block" >
                                             <div class="snipcart-thumb" dir="rtl">
-                                                <a href="{!! route('product.show',$hot_product->id) !!}"><img width="150" height="150" title=" " alt=" " src="{!! !isset($hot_product->getPhotoAttribute()[0])? '/images/logo.jpeg': $hot_product->getPhotoAttribute()[0]->url !!}" /></a>
-                                                <p>{!! $hot_product->name !!}</p>
-                                                <h4>{!! $hot_product->price !!} ج.س</h4>
+                                                <a href="{!! route('product.show',$hot_products[$i]->id) !!}"><img width="150" height="150" title=" " alt=" " src="{!! !isset($hot_products[$i]->getPhotoAttribute()[0])? '/images/logo.jpeg': $hot_products[$i]->getPhotoAttribute()[0]->url !!}" /></a>
+                                                <p>{!! $hot_products[$i]->name !!}</p>
+                                                <h4>{!! $hot_products[$i]->price !!} ج.س</h4>
                                             </div>
                                             <div class="snipcart-details top_brand_home_details">
-                                            <form method="post" action="{{route('cart.add',$hot_product->id)}}">
+                                            <form method="post" action="{{route('cart.add',$hot_products[$i]->id)}}">
                                                {{csrf_field()}}
-                                              <input type="submit" value="اضافة للسلة" class="btn btn-primary">
+                                              <input type="submit" value="اضافة للسلة" class="btn btn-success">
                                             </input>
                                             </form>
                                             </div>
@@ -79,16 +90,18 @@
                             </div>
                         </div>
                     </div>
-            @endforeach
             </div>
-
-</div>
-
-            @endforeach
+          </div>
+          @endfor
           
-
-                <div class="clearfix"> </div>
-            </div>
+          <!--  Example item end -->
+        </div>
+        <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+        <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
     </div>
     <div class="top-brands">
@@ -111,7 +124,7 @@
                                             <div class="snipcart-details top_brand_home_details">
                                             <form method="post" action="{{route('cart.add',$top_product->id)}}">
                                                {{csrf_field()}}
-                                              <input type="submit" value="اضافة للسلة" class="btn btn-primary">
+                                              <input type="submit" value="اضافة للسلة" class="btn btn-success">
                                             </input>
                                             </form>                                            </div>
                                         </div>
@@ -131,5 +144,79 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <style>
+        .multi-item-carousel{
+  .carousel-inner{
+    > .item{
+      transition: 500ms ease-in-out left;
+    }
+    .active{
+      &.left{
+        left:-33%;
+      }
+      &.right{
+        left:33%;
+      }
+    }
+    .next{
+      left: 33%;
+    }
+    .prev{
+      left: -33%;
+    }
+    @media all and (transform-3d), (-webkit-transform-3d) {
+      > .item{
+        // use your favourite prefixer here
+        transition: 500ms ease-in-out left;
+        transition: 500ms ease-in-out all;
+        backface-visibility: visible;
+        transform: none!important;
+      }
+    }
+  }
+  .carouse-control{
+    &.left, &.right{
+      background-image: none;
+    }
+  }
+}
+
+.centered{
+color:#FEF300;
+text-shadow: 1px 1px #f00;
+
+font-size:2.5em;
+}
+
+
+        </style>
+
+        <script>
+        
+        // Instantiate the Bootstrap carousel
+$('.multi-item-carousel').carousel({
+  interval: false
+});
+
+// for every slide in carousel, copy the next slide's item in the slide.
+// Do the same for the next, next item.
+$('.multi-item-carousel .item').each(function(){
+  var next = $(this).next();
+  if (!next.length) {
+    next = $(this).siblings(':first');
+  }
+  next.children(':first-child').clone().appendTo($(this));
+  
+  if (next.next().length>0) {
+    next.next().children(':first-child').clone().appendTo($(this));
+  } else {
+  	$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+  }
+});
+        </script>
 
 @stop

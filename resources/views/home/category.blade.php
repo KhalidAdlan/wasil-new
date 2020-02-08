@@ -1,6 +1,12 @@
 @extends('layouts.home')
 @section('content')
-   
+   <div class="text-center">
+       @if(isset($message))
+          <span dir="rtl" class="alert alert-success">{{$message}}</span>
+       @elseif(isset($error))
+          <span dir="rtl" class="alert alert-danger">{{$error}}</span>
+       @endif
+   </div>
     <div class="top-brands">
         <div class="container">
             @foreach ($top_products->chunk(3) as $chunk)
@@ -18,7 +24,7 @@
                                                 <h4>{!! $top_product->price !!} ج.س</h4>
                                             </div>
                                             <div class="snipcart-details top_brand_home_details">
-                                                <a class="btn btn-primary" href="{!! route('cart.add',$top_product->id) !!}">اضافة للسلة</a>
+                                                <a class="btn btn-success" href="{!! route('cart.add',$top_product->id) !!}">اضافة للسلة</a>
                                             </div>
                                         </div>
                                     </figure>

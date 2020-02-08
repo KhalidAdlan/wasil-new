@@ -37,11 +37,12 @@ class OrdersController extends Controller
         foreach($cart as $item)
         {
             $orderEntry = [
-                'customer_id' => $customer->id,
-                'status'    => 'جديد',
+                'customer_id'    => $customer->id,
+                'status'         => 'جديد',
                 'invoice_number' => $invoiceNumber,
-                'product_id'    => $item['id'],
-                'salesmen_id'  => $salesmanId
+                'quantity'       => $item['quantity'],
+                'product_id'     => $item['id'],
+                'salesmen_id'    => $salesmanId
             ];
 
            Order::create($orderEntry);

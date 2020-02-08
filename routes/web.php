@@ -16,6 +16,7 @@ Route::get('/portal/login', 'SalesPersonsController@getLoginForm')->name('portal
 Route::post('/portal/login', 'SalesPersonsController@attemptLogin')->name('portal.login.submit');
 Route::get('/portal', 'SalesPersonsController@getSalesmanPortal')->name('portal');
 Route::get('/portal/logout', 'SalesPersonsController@logout')->name('portal.logout');
+Route::get('/search', 'HomeController@search')->name('search');
 
 
 Route::get('/home', function () {
@@ -71,6 +72,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('lines', 'LineController');
 
     // Orders
+    Route::get('orders/report', 'OrderController@getReport')->name('orders.report');
+
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
 

@@ -79,3 +79,11 @@ table.dataTable thead .sorting_desc {
 .form-check.is-invalid ~ .invalid-feedback {
     display: block;
 }
+
+.invoice{
+    font-size: 25px;
+    padding: 10px;
+    background-color: #E0E0E0;
+    border-radius: 50%;
+    
+    }
