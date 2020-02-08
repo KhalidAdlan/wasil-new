@@ -8,6 +8,13 @@
 </div>
 @endif
 
+@if(isset($message))
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{$message}}</strong> 
+</div>
+@endif
+
 @if(isset($success))
 <div class="alert alert-success alert-dismissible">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
