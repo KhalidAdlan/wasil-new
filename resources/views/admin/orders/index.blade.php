@@ -85,7 +85,7 @@
             <div class="form-group">
                 <select name="line">
                     @foreach($lines as $line)
-                      <option value="{{$line->id}}">{{$line->number}}</option>
+                      <option value="{{$line->id}}">{{$line->number}} ({{$line->driver->name}})</option>
                     @endforeach
                 </select>
             </div>
