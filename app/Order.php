@@ -23,6 +23,7 @@ class Order extends Model
         'status',
         'product_id',
         'quantity',
+        'line_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -49,6 +50,12 @@ class Order extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public static function pickup($invoiceNumber,$lineId)
+    {
+        Order::where('invoice_number', '=', $invoiceNumber)
+        ->update(['line_id' => $lineId, 'status' => 'انتظار']);
     }
 
     public function salesmen()

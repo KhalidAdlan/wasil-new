@@ -43,7 +43,7 @@ class SalesPersonsController extends Controller
          }
 
 
-         $isVerified = DB::table('Salesmen')->where('username', $username)->where('password', $password)->exists();
+         $isVerified = DB::table('salesmen')->where('username', $username)->where('password', $password)->exists();
 
          if($isVerified)
          {

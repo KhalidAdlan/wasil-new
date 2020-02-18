@@ -74,6 +74,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Orders
     Route::get('orders/report', 'OrderController@getReport')->name('orders.report');
 
+    Route::post('orders/pickup', 'OrderController@pickUp')->name('order.pickup');
+
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
 

@@ -10,10 +10,13 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Order;
 use App\Product;
 use App\Salesman;
+use App\Line;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
@@ -84,7 +87,17 @@ class OrderController extends Controller
             return $table->make(true);
         }
 
-        return view('admin.orders.index');
+        $availableLines = Line::availableLines();
+        $waitingLinesCount = DB::table('orders')->where('status','انتظار')->distinct('line_id')->count();
+        $waitingProductsCount = DB::table('orders')->where('status','انتظار')->distinct('product_id')->count();
+        $waitingLines = DB::table('orders')->distinct()->get(['line_id']);
+       // dd($waitingLines->result());
+        return view('admin.orders.index', [
+            'lines' => $availableLines,
+            'waiting_lines_count' => $waitingLinesCount,
+            'waiting_products_count' => $waitingProductsCount,
+            'waiting_lines' => $waitingLines
+        ]);
     }
 
     public function create()
@@ -146,6 +159,14 @@ class OrderController extends Controller
 
         return back();
     }
+
+    public function pickup(Request $request)
+    {
+        $line = Line::find($request->all()['line']);
+        
+        Order::pickup($request->all()['invoice_number'], $line->id);
+
+        return back();    }
 
     public function massDestroy(MassDestroyOrderRequest $request)
     {

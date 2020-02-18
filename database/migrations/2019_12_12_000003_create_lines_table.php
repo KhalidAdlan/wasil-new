@@ -13,6 +13,8 @@ class CreateLinesTable extends Migration
 
             $table->string('number');
 
+            $table->integer('status')->default(0);
+
             $table->timestamps();
 
             $table->softDeletes();

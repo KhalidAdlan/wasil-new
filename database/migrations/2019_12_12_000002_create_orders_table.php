@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
 
             $table->integer('quantity');
 
+            $table->integer('line_id')->nullable();
+
             $table->string('type')->nullable();
 
             $table->timestamps();
