@@ -24,8 +24,11 @@
                                                 <h4>{!! $top_product->price !!} ج.س</h4>
                                             </div>
                                             <div class="snipcart-details top_brand_home_details">
-                                                <a class="btn btn-success" href="{!! route('cart.add',$top_product->id) !!}">اضافة للسلة</a>
-                                            </div>
+                                            <form method="post" action="{{route('cart.add',$top_product->id)}}">
+                                               {{csrf_field()}}
+                                              <input type="submit" value="اضافة للسلة" class="btn btn-success">
+                                            </input>
+                                            </form>                                            </div>
                                         </div>
                                     </figure>
                                 </div>

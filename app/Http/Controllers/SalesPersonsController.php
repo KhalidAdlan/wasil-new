@@ -47,7 +47,7 @@ class SalesPersonsController extends Controller
 
          if($isVerified)
          {
-           $user = DB::table('Salesmen')->where('username', $username)->where('password', $password)->first();
+           $user = DB::table('salesmen')->where('username', $username)->where('password', $password)->first();
            session()->put('isSalesmanLoggedIn', true);
            session()->put('salesman', $user);
 
