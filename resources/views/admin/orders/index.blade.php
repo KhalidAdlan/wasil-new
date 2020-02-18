@@ -106,6 +106,26 @@
     retrieve: true,
     aaSorting: [],
     ajax: "{{ route('admin.orders.index') }}",
+    initComplete: function () {
+            this.api().columns([2]).every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.header()) )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                    column.cells('', column[0]).render('display').sort().unique().each( function ( d, j ){
+                                select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        },
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'invoice_number', name: 'invoice_number' },
@@ -125,7 +145,7 @@
       
 
         
-    return "<a href='"+jsonData.id+"'>" + jsonData.name + "</a>";
+    return "<a href='/admin/salesmen/"+jsonData.id+"'>" + jsonData.name + "</a>";
 
     }
     else
@@ -154,8 +174,14 @@
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust();
+
+       
     });
 });
+
+
+
+
 
 
 
