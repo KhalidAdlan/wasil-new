@@ -20,7 +20,11 @@
     <h6>{{$order[0]->customer->state}} | {{$order[0]->customer->area}} | {{$order[0]->customer->address}}</h6>
     <h6>{{$order[0]->customer->phone}} | {{$order[0]->customer->phone2}}</h6>
     <hr/>
+
+    <span class="float-right" style="border: 1px solid gray; padding: 2px; border-radius:5px">{{$order[0]->status}}</span>
   </div>
+
+  
   <div class="card">
   <table class="table table-image">
           <thead>
