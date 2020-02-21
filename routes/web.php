@@ -70,11 +70,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Lines
     Route::delete('lines/destroy', 'LineController@massDestroy')->name('lines.massDestroy');
     Route::resource('lines', 'LineController');
+    Route::get('line-print/{line}','LineController@printWaitingLine')->name('line.print');
 
     // Orders
     Route::get('orders/report', 'OrderController@getReport')->name('orders.report');
 
     Route::post('orders/pickup', 'OrderController@pickUp')->name('order.pickup');
+
+    Route::post('orders/state/update', 'OrderController@changeState')->name('order.change.state');
+
 
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
@@ -83,4 +87,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('salesmen/destroy', 'SalesmenController@massDestroy')->name('salesmen.massDestroy');
     Route::post('salesmen/media', 'SalesmenController@storeMedia')->name('salesmen.storeMedia');
     Route::resource('salesmen', 'SalesmenController');
+
+    
 });

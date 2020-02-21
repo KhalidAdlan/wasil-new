@@ -58,6 +58,12 @@ class Order extends Model
         ->update(['line_id' => $lineId, 'status' => 'انتظار']);
     }
 
+    public static function changeState($order_id,$state)
+    {
+        Order::where('id', '=', $order_id)
+        ->update(['status' => $state]);
+    }
+
     public function salesmen()
     {
         return $this->belongsTo(Salesman::class, 'salesmen_id');

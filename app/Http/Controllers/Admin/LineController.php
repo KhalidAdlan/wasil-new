@@ -99,9 +99,12 @@ class LineController extends Controller
     {
         abort_if(Gate::denies('line_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $waitingOrders = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('invoice_number');
+        $shippedOrders = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('invoice_number');
+        $deliveredOrders = \App\Order::all()->where('line_id',$line->id)->where('status','تم التوصيل')->groupBy('invoice_number');
         $line->load('driver');
 
-        return view('admin.lines.show', compact('line'));
+        return view('admin.lines.show', ['line' => $line, 'waitingOrders' => $waitingOrders, 'shippedOrders' => $shippedOrders, 'deliveredOrders' => $deliveredOrders]);
     }
 
     public function destroy(Line $line)
@@ -118,5 +121,16 @@ class LineController extends Controller
         Line::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function printWaitingLine(Line $line)
+    {
+        abort_if(Gate::denies('line_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $orders = \App\Order::all()->where('line_id',$line->id)->where('status', 'انتظار')->groupBy('invoice_number');
+
+        $line->load('driver');
+
+        return view('admin.lines.print', ['line' => $line, 'orders' => $orders]);
     }
 }

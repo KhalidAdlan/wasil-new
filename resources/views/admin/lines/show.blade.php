@@ -48,6 +48,176 @@
             </div>
         </div>
     </div>
+    
+</div>
+
+
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.show') }} {{ trans('cruds.line.title') }} Assigned Orders
+    </div>
+
+    <div class="card-body">
+
+    <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Waiting <span class="badge badge-primary">{{$waitingOrders->count()}}</span></a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">On the Way <span class="badge badge-primary">{{$shippedOrders->count()}}</span></a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Delivered <span class="badge badge-primary">{{$deliveredOrders->count()}}</span></a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    
+   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+   <table class="table table-striped">
+           <thead>
+               <th>Customer</th>
+               <th>Product</th>
+               <th>Quantity</th>
+               <th>Price</th>
+               <th>Total</th>
+           </thead>
+         @foreach ($waitingOrders as $order)
+
+          @foreach ( $order as $item)
+           <tr>
+           @if($loop->first)
+               <td rowspan="{{$order->count()}}">
+                   <h6>{{$order[0]->invoice_number}}</h6>
+                   <h6>{{$order[0]->customer->name}}</h6>
+                   <h6>{{$order[0]->customer->phone}}</h6>
+                   <h6>{{$order[0]->customer->phone2}}</h6>
+                   <h6>{{$order[0]->customer->area}}</h6>
+                   <h6>{{$order[0]->customer->state}}</h6>
+                   <h6>{{$order[0]->customer->address}}</h6>
+       
+               </td>
+            @endif
+               <td>
+                   {{$item->product->name}}
+               </td>
+               <td>
+                   {{$item->quantity}}
+               </td>
+               <td>
+                   {{$item->product->price}}
+               </td>
+               <td>
+                   {{$item->product->price * $item->quantity}}
+               </td>
+
+           </tr>
+        @endforeach
+         @endforeach
+       </table>
+   </div>
+
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <table class="table table-striped">
+           <thead>
+               <th>Customer</th>
+               <th>Product</th>
+               <th>Quantity</th>
+               <th>Price</th>
+               <th>Total</th>
+           </thead>
+           @foreach ($shippedOrders as $order)
+
+          @foreach ( $order as $item)
+           <tr>
+           @if($loop->first)
+               <td rowspan="{{$order->count()}}">
+                   <h6>{{$order[0]->invoice_number}}</h6>
+                   <h6>{{$order[0]->customer->name}}</h6>
+                   <h6>{{$order[0]->customer->phone}}</h6>
+                   <h6>{{$order[0]->customer->phone2}}</h6>
+                   <h6>{{$order[0]->customer->area}}</h6>
+                   <h6>{{$order[0]->customer->state}}</h6>
+                   <h6>{{$order[0]->customer->address}}</h6>
+                   <form method="POST" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+            @csrf
+            
+            <input type="text" hidden name="line" value="{{$order[0]->line_id}}"></input>
+
+            <input type="text" hidden name="invoice_number" value="{{$order[0]->invoice_number}}"></input>
+            <input type="text" hidden name="state" value="تم التوصيل"></input>
+
+             <hr>
+            <input type="submit" class="btn btn-xs  btn-primary" style="color:white" value="Finish!"></input>
+
+        </form>
+               </td>
+            @endif
+               <td>
+                   {{$item->product->name}}
+               </td>
+               <td>
+                   {{$item->quantity}}
+               </td>
+               <td>
+                   {{$item->product->price}}
+               </td>
+               <td>
+                   {{$item->product->price * $item->quantity}}
+               </td>
+
+           </tr>
+        @endforeach
+         @endforeach
+       </table>
+  </div>
+
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+  <table class="table table-striped">
+           <thead>
+               <th>Customer</th>
+               <th>Product</th>
+               <th>Quantity</th>
+               <th>Price</th>
+               <th>Total</th>
+           </thead>
+        @foreach ($deliveredOrders as $order)
+
+          @foreach ( $order as $item)
+           <tr>
+           @if($loop->first)
+               <td rowspan="{{$order->count()}}">
+                   <h6>{{$order[0]->invoice_number}}</h6>
+                   <h6>{{$order[0]->customer->name}}</h6>
+                   <h6>{{$order[0]->customer->phone}}</h6>
+                   <h6>{{$order[0]->customer->phone2}}</h6>
+                   <h6>{{$order[0]->customer->area}}</h6>
+                   <h6>{{$order[0]->customer->state}}</h6>
+                   <h6>{{$order[0]->customer->address}}</h6>
+
+               </td>
+            @endif
+               <td>
+                   {{$item->product->name}}
+               </td>
+               <td>
+                   {{$item->quantity}}
+               </td>
+               <td>
+                   {{$item->product->price}}
+               </td>
+               <td>
+                   {{$item->product->price * $item->quantity}}
+               </td>
+
+           </tr>
+        @endforeach
+         @endforeach
+       </table>
+  </div>
+</div>
+
+
+
+
+       
+    </div>
+    
 </div>
 
 

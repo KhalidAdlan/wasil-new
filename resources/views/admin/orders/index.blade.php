@@ -103,7 +103,7 @@
 
 
 
-<div class="modal fade" id="waitingLines" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade col-md-12" id="waitingLines" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -113,9 +113,51 @@
         </button>
       </div>
       <div class="modal-body">
-       @foreach ($waiting_lines as $line_id)
-         
+      <table class="table table-bordered table-striped">
+           <thead>
+               <th>Line</th>
+               <th>Areas</th>
+               <th>Orders</th>
+               <th></th>
+           </thead>
+           <tbody>
+       @foreach ($waiting_lines as $line)
+       
+           <tr>
+               <td>
+                  <a>#{{$line->number}} ({{$line->driver->name}})</a>
+               </td>
+               <td>
+                   @foreach (\App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->pluck('customer.area') as $area)
+                      {{ $area }},
+                   @endforeach
+               </td>
+               <td>
+                    {{\App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('invoice_number')->count()}}
+               </td>
+               <td><a class="btn btn-xs  btn-success" href="lines/{{$line->id}}" style="color:white">Show</a>
+
+               <a href="{{route('admin.line.print',$line->id)}}" target="_blank" class="btn btn-xs  btn-success" style="color:white">Print</a>
+               
+               <form method="POST" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+            @csrf
+            
+            <input type="text" hidden name="line" value="{{$line->id}}"></input>
+            <input type="text" hidden name="state" value="تم الشحن"></input>
+
+             <hr>
+            <input type="submit" class="btn btn-xs  btn-primary" style="color:white" value="GO!"></input>
+
+        </form>
+        </td>
+           </tr>    
+          
+
+       
        @endforeach
+       </tbody>
+           
+      </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

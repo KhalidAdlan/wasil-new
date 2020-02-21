@@ -88,10 +88,18 @@ class OrderController extends Controller
         }
 
         $availableLines = Line::availableLines();
+
         $waitingLinesCount = DB::table('orders')->where('status','انتظار')->distinct('line_id')->count();
         $waitingProductsCount = DB::table('orders')->where('status','انتظار')->distinct('product_id')->count();
-        $waitingLines = DB::table('orders')->distinct()->get(['line_id']);
-       // dd($waitingLines->result());
+        $waitingLinesIds = DB::table('orders')->where('status', 'انتظار')->distinct()->get(['line_id']);
+        $waitingLines = [];
+
+        foreach( $waitingLinesIds as $waitingLineId)
+        {
+            $waitingLine = Line::find($waitingLineId->line_id);
+            if(isset($waitingLine))
+            array_push($waitingLines, $waitingLine);
+        }
         return view('admin.orders.index', [
             'lines' => $availableLines,
             'waiting_lines_count' => $waitingLinesCount,
@@ -166,7 +174,57 @@ class OrderController extends Controller
         
         Order::pickup($request->all()['invoice_number'], $line->id);
 
-        return back();    }
+        return back();    
+    }
+
+    public function changeState(Request $request)
+    {
+        if(isset($request->all()['line']) && !isset($request->all()['invoice_number']))
+        {
+            $line = Line::find($request->all()['line']);
+            $state = $request->all()['state'];
+    
+            $orders = Order::all()->where('status','!=', $state)->where('line_id',$line->id);
+    
+            foreach($orders as $order)
+            {
+                Order::changeState($order->id, $state);
+    
+            }
+         
+          if($state == "تم الشحن")
+          {
+            Line::updateAvailability($line->id);
+          }
+    
+    
+    
+        }
+
+        if(isset($request->all()['invoice_number']))
+        {
+            $line = Line::find($request->all()['line']);
+            
+            $invoice_number = $request->all()['invoice_number'];
+
+            $state = $request->all()['state'];
+    
+            $orders = Order::all()->where('status','!=', $state)->where('line_id',$line->id)->where('invoice_number',$invoice_number);
+    
+            foreach($orders as $order)
+            {
+                Order::changeState($order->id, $state);
+    
+            }
+
+            Line::updateAvailability($line->id);
+         
+        }
+        
+        return back();
+
+        
+    }
 
     public function massDestroy(MassDestroyOrderRequest $request)
     {

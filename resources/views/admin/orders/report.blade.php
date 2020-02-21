@@ -96,9 +96,9 @@
 @endcan
 
   let dtOverrideGlobals = {
-    
+    buttons: dtButtons,
     processing: true,
-    serverSide: false,
+    serverSide: true,
     retrieve: true,
     aaSorting: [],
     ajax: "{{ route('admin.orders.report') }}",
