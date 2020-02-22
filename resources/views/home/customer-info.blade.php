@@ -7,26 +7,26 @@
 <h3 >بياناتك الشخصية</h3>
 <div class="form-group">
   <label for="name">الاسم</label>
-  <input class="form-control" type="text" name="name" placeholder="اكتب اسمك كاملا"/>
+  <input required class="form-control" type="text" name="name" placeholder="اكتب اسمك كاملا"/>
 </div>
 <div class="form-group">
   <label for="phone">الهاتف</label>
-  <input class="form-control" type="text" name="phone" placeholder="اكتب رقم هاتفك"/>
+  <input required class="form-control" type="text" name="phone" placeholder="اكتب رقم هاتفك"/>
 </div>
 
 <div class="form-group">
   <label for="phone-2">رقم احتياطي</label>
-  <input class="form-control" type="text" name="phone-2" placeholder="اكتب رقم هاتفك"/>
+  <input  class="form-control" type="text" name="phone-2" placeholder="اكتب رقم هاتفك"/>
 </div>
 
 <div class="form-group" id="div_radio"><label class="control-label requiredField" for="radio">الولاية <span class="asteriskField">*</span></label><div class=""><label class="radio-inline"><label class="radio-inline"><input name="radio" type="radio" value="now">&nbsp;&nbsp;&nbsp;توصيل فوري</label><label class="radio-inline"><input name="radio" type="radio" value="khrt">&nbsp;&nbsp;&nbsp; الخرطوم</label><input name="radio" type="radio" value="bhri">&nbsp;&nbsp;&nbsp; بحري</label><label class="radio-inline"><input name="radio" type="radio" value="omdur">&nbsp;&nbsp;&nbsp; امدرمان</label><label class="radio-inline"><input name="radio" type="radio" value="other">&nbsp;&nbsp;&nbsp; ولايات</label></div></div>
 
-<div class="form-group"><label class="control-label requiredField" for="select">المكان <span class="asteriskField">*</span></label><select class="select form-control" id="select" name="select"><option value="توصيل فوري">توصيل فوري</option></select></div>
+<div class="form-group"><label class="control-label requiredField" for="select">المكان <span class="asteriskField">*</span></label><select required class="select form-control" id="select" name="select"><option value="توصيل فوري">توصيل فوري</option></select></div>
 
 
 <div class="form-group">
   <label for="address">العنوان</label>
-  <input class="form-control" type="text" name="address" placeholder=""/>
+  <input required class="form-control" type="text" name="address" placeholder=""/>
 </div>
 
 <div class="form-group">

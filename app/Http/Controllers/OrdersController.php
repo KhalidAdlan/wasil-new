@@ -49,7 +49,7 @@ class OrdersController extends Controller
         }
 
         session()->forget('cart');
-
+        session()->forget('customer');
 
          $hot_products = ProductTag::all()->first()->tagProducts()->get();
          $top_products = Product::paginate(9);
