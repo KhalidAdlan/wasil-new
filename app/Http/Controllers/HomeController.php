@@ -131,7 +131,7 @@ class HomeController extends Controller
 
         $name = $request->name;
         $phone = $request->phone;
-        $phone2 = $request->phone-2;
+        $phone2 = $request->phone2;
         $state = $request->radio;
         $area = $request->select;
         $address = $request->address;

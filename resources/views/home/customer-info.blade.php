@@ -15,8 +15,8 @@
 </div>
 
 <div class="form-group">
-  <label for="phone-2">رقم احتياطي</label>
-  <input  class="form-control" type="text" name="phone-2" placeholder="اكتب رقم هاتفك"/>
+  <label for="phone2">رقم احتياطي</label>
+  <input  class="form-control" type="text" name="phone2" placeholder="اكتب رقم هاتفك"/>
 </div>
 
 <div class="form-group" id="div_radio"><label class="control-label requiredField" for="radio">الولاية <span class="asteriskField">*</span></label><div class=""><label class="radio-inline"><label class="radio-inline"><input name="radio" type="radio" value="now">&nbsp;&nbsp;&nbsp;توصيل فوري</label><label class="radio-inline"><input name="radio" type="radio" value="khrt">&nbsp;&nbsp;&nbsp; الخرطوم</label><input name="radio" type="radio" value="bhri">&nbsp;&nbsp;&nbsp; بحري</label><label class="radio-inline"><input name="radio" type="radio" value="omdur">&nbsp;&nbsp;&nbsp; امدرمان</label><label class="radio-inline"><input name="radio" type="radio" value="other">&nbsp;&nbsp;&nbsp; ولايات</label></div></div>
