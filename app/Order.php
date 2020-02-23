@@ -39,7 +39,7 @@ class Order extends Model
 
     public static function generateValidInvoiceNumber()
     {
-       $lastOrder = DB::table('orders')->orderBy('invoice_number', 'desc')->first();
+       $lastOrder = DB::table('orders')->orderBy('id', 'desc')->first();
        if(!isset($lastOrder))
          return 1;
 
