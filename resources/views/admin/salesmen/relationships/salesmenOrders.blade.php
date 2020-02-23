@@ -76,6 +76,7 @@
 	               </tfoot>
                     <tbody>
                         @foreach($orders as $key => $order)
+                        @if(isset($order->product))
                             <tr data-entry-id="{{ $order->id }}">
                                 <td>
 
@@ -135,6 +136,7 @@
                                 
 
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
