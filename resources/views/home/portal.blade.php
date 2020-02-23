@@ -39,11 +39,11 @@
           </thead>
           <tbody>
           @foreach($order as $cartItem)
-
+@if(isset($cartItem->product))
             <tr>
-              <td class="w-25">
+	      <td class="w-25">
                 <img src="{{$cartItem->product->getPhotoAttribute()[0]->thumbnail}}" class="img-fluid img-thumbnail" alt="Wasiil">
-              </td>
+	       	</td>
               <td>{{$cartItem->product->name}}</td>
               <td>{{$cartItem->product->price}}</td>
              
@@ -52,7 +52,8 @@
 
               <td>{{$cartItem->quantity * $cartItem->product->price }}</td>
               
-            </tr>
+	    </tr>
+@endif
             @endforeach
 
           </tbody>
