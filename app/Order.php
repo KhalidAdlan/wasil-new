@@ -47,6 +47,27 @@ class Order extends Model
        return $invoiceNumber;
     }
 
+    public function total()
+    {
+        $orders = DB::table('orders')->where('invoice_number', $this->invoice_number)->get();
+
+        $total = 0;
+        foreach($orders as $order)
+        {
+            try{
+            $product = Product::find($order->product_id);
+
+           $total += ($product->price * $order->quantity);
+            }
+            catch(\Exception $e)
+            {
+
+            }
+        }
+
+        return $total;
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');

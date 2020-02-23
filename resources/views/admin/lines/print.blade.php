@@ -38,6 +38,7 @@
                    <h6>{{$order[0]->customer->area}}</h6>
                    <h6>{{$order[0]->customer->state}}</h6>
                    <h6>{{$order[0]->customer->address}}</h6>
+                   <div class="text-center" style="border: 1px solid black; border-radius:5px"> {{$order[0]->total()}}</div>
 
                </td>
             @endif
