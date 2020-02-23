@@ -80,6 +80,8 @@
          @foreach ($waitingOrders as $order)
 
           @foreach ( $order as $item)
+          @if(isset($item->product))
+
            <tr>
            @if($loop->first)
                <td rowspan="{{$order->count()}}">
@@ -107,6 +109,7 @@
                </td>
 
            </tr>
+           @endif
         @endforeach
          @endforeach
        </table>
@@ -124,6 +127,7 @@
            @foreach ($shippedOrders as $order)
 
           @foreach ( $order as $item)
+          @if(isset($item->product))
            <tr>
            @if($loop->first)
                <td rowspan="{{$order->count()}}">
@@ -162,6 +166,7 @@
                </td>
 
            </tr>
+           @endif
         @endforeach
          @endforeach
        </table>
@@ -179,6 +184,8 @@
         @foreach ($deliveredOrders as $order)
 
           @foreach ( $order as $item)
+          @if(isset($item->product))
+
            <tr>
            @if($loop->first)
                <td rowspan="{{$order->count()}}">
@@ -206,6 +213,7 @@
                </td>
 
            </tr>
+           @endif
         @endforeach
          @endforeach
        </table>
