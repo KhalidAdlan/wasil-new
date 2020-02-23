@@ -306,7 +306,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   </div>
 </div>
 <!-- End Modal -->
-        <div dir="rtl" class="col-md-3 w3_footer_grid">
+
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="1ab37352-50e0-4405-82fe-9225bf1e7267";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+
+	<div dir="rtl" class="col-md-3 w3_footer_grid">
             <h3>منشورات الفيسبوك</h3>
             <div class="fb-page" data-href="https://web.facebook.com/Wasil-110526097088344/" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/Wasil-110526097088344/" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/Wasil-110526097088344/">Wasil</a></blockquote></div>
         </div>
@@ -327,7 +330,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="clearfix"> </div>
         </div>
         <div class="wthree_footer_copy">
-            <p>© 2016 Wasiil. جميع الحقوق محفوظة</p>
+	    <p>© 2020 Wasiil. جميع الحقوق محفوظة</p>
         </div>
     </div>
 </div>
