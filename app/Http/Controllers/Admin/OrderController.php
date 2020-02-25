@@ -194,7 +194,7 @@ class OrderController extends Controller
          
           if($state == "تم الشحن")
           {
-            Line::updateAvailability($line->id);
+            // Line::updateAvailability($line->id);
           }
     
     
@@ -217,7 +217,7 @@ class OrderController extends Controller
     
             }
 
-            Line::updateAvailability($line->id);
+          //  Line::updateAvailability($line->id);
          
         }
         
