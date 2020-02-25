@@ -209,6 +209,7 @@ return [
     'order'             => [
         'title'          => 'Orders',
         'title_singular' => 'Order',
+        'newOrders'          => 'New Orders',
         'report'         => 'Report',
         'fields'         => [
             'id'                    => 'ID',

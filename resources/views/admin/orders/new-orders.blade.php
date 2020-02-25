@@ -231,27 +231,8 @@
     serverSide: false,
     retrieve: true,
     aaSorting: [],
-    ajax: "{{ route('admin.orders.index') }}",
-    initComplete: function () {
-            this.api().columns([2,10]).every( function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo( $(column.header()) )
-                    .on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
- 
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    } );
- 
-                    column.cells('', column[0]).render('display').sort().unique().each( function ( d, j ){
-                                select.append( '<option value="'+d+'">'+d+'</option>' )
-                } );
-            } );
-        },
+    ajax: "{{ route('admin.order.new-orders') }}",
+    
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'invoice_number', name: 'invoice_number' },

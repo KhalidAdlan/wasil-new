@@ -108,6 +108,95 @@ class OrderController extends Controller
         ]);
     }
 
+
+    public function newOrders(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = Order::with(['customer', 'product', 'salesmen'])->where('status','جديد')->select(sprintf('%s.*', (new Order)->table));
+            $table = Datatables::of($query);
+
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'order_show';
+                $editGate      = 'order_edit';
+                $deleteGate    = 'order_delete';
+                $crudRoutePart = 'orders';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : "";
+            });
+            $table->editColumn('invoice_number', function ($row) {
+                return $row->invoice_number ? $row->invoice_number : "";
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? $row->status : "";
+            });
+            $table->addColumn('customer_name', function ($row) {
+                return $row->customer ? $row->customer->name : '';
+            });
+
+            $table->editColumn('customer.phone', function ($row) {
+                return $row->customer ? (is_string($row->customer) ? $row->customer : $row->customer->phone) : '';
+            });
+            $table->addColumn('product_name', function ($row) {
+                return $row->product ? $row->product->name : '';
+            });
+
+            $table->editColumn('product.price', function ($row) {
+                return $row->product ? (is_string($row->product) ? $row->product : $row->product->price) : '';
+            });
+
+            $table->editColumn('quantity', function ($row) {
+                return $row->quantity ? $row->quantity : "";
+            });
+
+            $table->addColumn('salesmen_name', function ($row) {
+
+                return $row->salesmen ? json_encode($row->salesmen,JSON_UNESCAPED_UNICODE): '';
+            });
+
+            $table->editColumn('created_at', function ($row) {
+                return $row->created_at ? \Carbon\Carbon::createFromTimeStamp(strtotime($row->created_at))->diffForHumans() : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'customer', 'product', 'salesmen']);
+
+            return $table->make(true);
+        }
+
+        $availableLines = Line::availableLines();
+
+        $waitingLinesCount = DB::table('orders')->where('status','انتظار')->distinct('line_id')->count();
+        $waitingProductsCount = DB::table('orders')->where('status','انتظار')->distinct('product_id')->count();
+        $waitingLinesIds = DB::table('orders')->where('status', 'انتظار')->distinct()->get(['line_id']);
+        $waitingLines = [];
+
+        foreach( $waitingLinesIds as $waitingLineId)
+        {
+            $waitingLine = Line::find($waitingLineId->line_id);
+            if(isset($waitingLine))
+            array_push($waitingLines, $waitingLine);
+        }
+        return view('admin.orders.new-orders', [
+            'lines' => $availableLines,
+            'waiting_lines_count' => $waitingLinesCount,
+            'waiting_products_count' => $waitingProductsCount,
+            'waiting_lines' => $waitingLines
+        ]);
+    }
+    
     public function create()
     {
         abort_if(Gate::denies('order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');

@@ -172,7 +172,16 @@
                         </a>
                         <ul class="nav nav-treeview">
                             @can('order_access')
-                              
+                            <li class="nav-item">
+                                    <a href="{{ route("admin.order.new-orders") }}" class="nav-link {{ request()->is('admin/orders/new') ? 'active' : '' }}">
+                                        <i class="fa-fw fas fa-luggage-cart">
+
+                                        </i>
+                                        <p>
+                                            <span>{{ trans('cruds.order.newOrders') }}</span>
+                                        </p>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{{ route("admin.orders.index") }}" class="nav-link {{ request()->is('admin/orders') ? 'active' : '' }}">
                                         <i class="fa-fw fas fa-luggage-cart">
@@ -183,6 +192,7 @@
                                         </p>
                                     </a>
                                 </li>
+
                             @endcan
                         </ul>
                     </li>
