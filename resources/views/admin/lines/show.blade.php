@@ -125,6 +125,7 @@
                <th>Quantity</th>
                <th>Price</th>
                <th>Total</th>
+               <th></th>
            </thead>
            @foreach ($shippedOrders as $order)
 
@@ -167,6 +168,13 @@
                </td>
                <td>
                    {{$item->product->price * $item->quantity}}
+               </td>
+               <td>
+                   <form method="POST" action="{{route('admin.order.delete',$item->id)}}" enctype="multipart/form-data">
+                   @method('DELETE')
+                   @csrf
+                       <input value="Delete" type="submit" class="btn btn-xs btn-danger"></input>
+                   </form>
                </td>
 
            </tr>

@@ -226,6 +226,15 @@ class OrderController extends Controller
         
     }
 
+    public function deleteFromLine(Order $order)
+    {
+        abort_if(Gate::denies('order_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $order->delete();
+
+        return back();
+    }
+
     public function massDestroy(MassDestroyOrderRequest $request)
     {
         Order::whereIn('id', request('ids'))->delete();

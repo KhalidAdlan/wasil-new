@@ -79,6 +79,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::post('orders/state/update', 'OrderController@changeState')->name('order.change.state');
 
+    Route::delete('orders/delete/{order}', 'OrderController@deleteFromLine')->name('order.delete');
+
 
     Route::delete('orders/destroy', 'OrderController@massDestroy')->name('orders.massDestroy');
     Route::resource('orders', 'OrderController');
