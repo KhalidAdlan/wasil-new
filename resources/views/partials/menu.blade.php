@@ -181,7 +181,7 @@
                                             <span>{{ trans('cruds.order.newOrders') }}</span>
                                         </p>
                                     </a>
-                                </li>
+                                </li> 
                                 <li class="nav-item">
                                     <a href="{{ route("admin.orders.index") }}" class="nav-link {{ request()->is('admin/orders') ? 'active' : '' }}">
                                         <i class="fa-fw fas fa-luggage-cart">

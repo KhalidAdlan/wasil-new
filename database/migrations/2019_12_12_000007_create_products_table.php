@@ -17,6 +17,9 @@ class CreateProductsTable extends Migration
 
             $table->decimal('price', 15, 2)->nullable();
 
+            $table->decimal('cost_price', 15, 2)->default(0);
+
+
             $table->timestamps();
 
             $table->softDeletes();

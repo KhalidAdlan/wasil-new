@@ -34,6 +34,9 @@
                         {{ trans('cruds.product.fields.price') }}
                     </th>
                     <th>
+                        {{ trans('cruds.product.fields.cost_price') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.product.fields.category') }}
                     </th>
                     <th>
@@ -102,6 +105,7 @@
 { data: 'name', name: 'name' },
 { data: 'description', name: 'description' },
 { data: 'price', name: 'price' },
+{ data: 'cost_price', name: 'cost_price' },
 { data: 'category', name: 'categories.name' },
 { data: 'tag', name: 'tags.name' },
 { data: 'photo', name: 'photo', sortable: false, searchable: false },
