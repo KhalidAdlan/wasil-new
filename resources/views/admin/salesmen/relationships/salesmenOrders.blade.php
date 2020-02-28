@@ -54,6 +54,9 @@
                                  Total
                             </th>
                             <th>
+                                Commission
+                            </th>
+                            <th>
                                 Created At
                             </th>
                            
@@ -70,6 +73,8 @@
                          <td></td>
                          <td></td>
                          <td></td>
+                         <td></td>
+
                          <td></td>
 
 		               </tr>
@@ -106,6 +111,11 @@
                                 <td>
                                     {{ $order->quantity * $order->product->price }}
                                 </td>
+                                <td>
+                                {{ ($order->product->price - $order->product->cost_price) * $order->quantity * \App\Salesman::find($order->salesmen_id)->commission /100}}
+
+                                </td>
+                               
                                 <td>
                                     {{ $order->created_at}}
                                 </td>
@@ -250,7 +260,7 @@ $.fn.dataTableExt.afnFiltering.push(
         var dateEnd = parseDateValue($("#datepicker_to").val());
         // aData represents the table structure as an array of columns, so the script access the date value
         // in the first column of the table via aData[0]
-        var evalDate= parseDateValue(aData[9]);
+        var evalDate= parseDateValue(aData[10]);
         if (evalDate >= dateStart && evalDate <= dateEnd) {
             return true;
         }

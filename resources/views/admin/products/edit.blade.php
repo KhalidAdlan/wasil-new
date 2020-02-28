@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="cost_price">{{ trans('cruds.product.fields.cost_price') }}</label>
-                <input class="form-control {{ $errors->has('cost_price') ? 'is-invalid' : '' }}" type="number" name="cost_price" id="cost_price" value="{{ old('cost_price') }}" step="0.01" required>
+                <input class="form-control {{ $errors->has('cost_price') ? 'is-invalid' : '' }}" type="number" name="cost_price" id="cost_price" value="{{ old('cost_price', $product->cost_price) }}" step="0.01" required>
                 @if($errors->has('cost_price'))
                     <span class="text-danger">{{ $errors->first('cost_price') }}</span>
                 @endif

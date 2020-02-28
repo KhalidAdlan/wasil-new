@@ -57,6 +57,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.salesman.fields.commission') }}
+                        </th>
+                        <td>
+                            {{ $salesman->commission }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.salesman.fields.address') }}
                         </th>
                         <td>

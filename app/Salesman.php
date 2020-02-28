@@ -28,6 +28,7 @@ class Salesman extends Model implements HasMedia
         'name',
         'phone',
         'address',
+        'commission',
         'username',
         'password',
         'created_at',

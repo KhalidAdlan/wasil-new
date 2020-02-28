@@ -42,6 +42,14 @@
                 <span class="help-block">{{ trans('cruds.salesman.fields.phone_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="commission">{{ trans('cruds.salesman.fields.commission') }}</label>
+                <input class="form-control {{ $errors->has('commission') ? 'is-invalid' : '' }}" type="number" step="0.01" name="commission" id="commission" value="{{ old('commission', '') }}">
+                @if($errors->has('commission'))
+                    <span class="text-danger">{{ $errors->first('commission') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.salesman.fields.phone_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="address">{{ trans('cruds.salesman.fields.address') }}</label>
                 <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text" name="address" id="address" value="{{ old('address', '') }}">
                 @if($errors->has('address'))

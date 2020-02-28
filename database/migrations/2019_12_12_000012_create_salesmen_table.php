@@ -17,6 +17,9 @@ class CreateSalesmenTable extends Migration
 
             $table->string('password');
 
+            $table->decimal('commission', 15, 2)->nullable();
+
+
             $table->string('phone')->nullable();
 
             $table->string('address')->nullable();

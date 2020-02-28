@@ -240,6 +240,7 @@ return [
         'title_singular' => 'Salesman',
         'fields'         => [
             'id'                 => 'ID',
+            'commission'         => 'Commission (%)',
             'id_helper'          => '',
             'name'               => 'Name',
             'name_helper'        => '',

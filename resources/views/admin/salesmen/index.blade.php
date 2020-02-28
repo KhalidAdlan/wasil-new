@@ -37,6 +37,9 @@
                         {{ trans('cruds.salesman.fields.phone') }}
                     </th>
                     <th>
+                        {{ trans('cruds.salesman.fields.commission') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.salesman.fields.address') }}
                     </th>
                     <th>
@@ -103,6 +106,7 @@
 { data: 'username', name: 'username' },
 { data: 'password', name: 'password' },
 { data: 'phone', name: 'phone' },
+{ data: 'commission', name: 'commission' },
 { data: 'address', name: 'address' },
 { data: 'id_document', name: 'id_document', sortable: false, searchable: false },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
