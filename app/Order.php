@@ -49,7 +49,7 @@ class Order extends Model
 
     public function total()
     {
-        $orders = DB::table('orders')->where('invoice_number', $this->invoice_number)->get();
+        $orders = DB::table('orders')->where('deleted_at',null)->where('invoice_number', $this->invoice_number)->get();
 
         $total = 0;
         foreach($orders as $order)

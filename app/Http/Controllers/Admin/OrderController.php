@@ -277,6 +277,7 @@ class OrderController extends Controller
     
             foreach($orders as $order)
             {
+                if($order->status != 'تم التوصيل')
                 Order::changeState($order->id, $state);
     
             }
