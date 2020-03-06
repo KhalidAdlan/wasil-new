@@ -78,13 +78,12 @@
                <th>Total</th>
            </thead>
          @foreach ($waitingOrders as $order)
-
           @foreach ( $order as $item)
           @if(isset($item->product))
 
            <tr>
            @if($loop->first)
-               <td rowspan="{{$order->count()}}">
+               <td class="invoice-box" rowspan="{{$order->count()}}">
                    <h6>{{$order[0]->invoice_number}}</h6>
                    <h6>{{$order[0]->customer->name}}</h6>
                    <h6>{{$order[0]->customer->phone}}</h6>
@@ -133,7 +132,7 @@
           @if(isset($item->product))
            <tr>
            @if($loop->first)
-               <td rowspan="{{$order->count()}}">
+               <td class="invoice-box" rowspan="{{$order->count()}}">
                    <h6>{{$order[0]->invoice_number}}</h6>
                    <h6>{{$order[0]->customer->name}}</h6>
                    <h6>{{$order[0]->customer->phone}}</h6>
@@ -200,7 +199,7 @@
 
            <tr>
            @if($loop->first)
-               <td rowspan="{{$order->count()}}">
+               <td class="invoice-box" rowspan="{{$order->count()}}">
                    <h6>{{$order[0]->invoice_number}}</h6>
                    <h6>{{$order[0]->customer->name}}</h6>
                    <h6>{{$order[0]->customer->phone}}</h6>

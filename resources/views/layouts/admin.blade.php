@@ -22,6 +22,15 @@
     <link href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @yield('styles')
+
+    <style>
+    .invoice-box{
+
+border: 3px solid black;
+border-right: none;
+
+}
+    </style>
 </head>
 
 <body class="sidebar-mini layout-fixed" style="height: auto;">
