@@ -337,6 +337,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="{!! asset('js/front.js') !!}"></script>
 <div id="fb-root"></div>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159930461-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-159930461-1');
+</script>
 
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=478121079233575&autoLogAppEvents=1"></script>
 
