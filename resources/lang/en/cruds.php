@@ -110,6 +110,7 @@ return [
         'title_singular' => 'Product',
         'fields'         => [
             'id'                 => 'ID',
+            'status'             => 'Status',
             'cost_price'         => 'Cost Price', 
             'id_helper'          => '',
             'name'               => 'Name',

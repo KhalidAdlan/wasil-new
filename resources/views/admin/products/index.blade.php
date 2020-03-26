@@ -25,6 +25,9 @@
                         {{ trans('cruds.product.fields.id') }}
                     </th>
                     <th>
+                        {{ trans('cruds.product.fields.status') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.product.fields.name') }}
                     </th>
                     <th>
@@ -102,6 +105,16 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'status', name: 'status', render: function(data){
+    if(data == 1)
+    {
+        return '<h5 style="color:green">ON</h5>';
+
+    }else
+    {
+        return '<h5 style="color:red;">OFF</h5>';
+    }
+}},
 { data: 'name', name: 'name' },
 { data: 'description', name: 'description' },
 { data: 'price', name: 'price' },

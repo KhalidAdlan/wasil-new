@@ -11,6 +11,18 @@
             @method('PUT')
             @csrf
             <div class="form-group">
+                <label class="required" for="status">{{ trans('cruds.product.fields.status') }}</label>
+                
+                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}"  name="status" id="status" value="{{ old('status', $product->status) }}" required>
+                   <option value='1'>ON</option>
+                   <option value='0'>OFF</option>
+                </select>
+                @if($errors->has('status'))
+                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.name_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.product.fields.name') }}</label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $product->name) }}" required>
                 @if($errors->has('name'))

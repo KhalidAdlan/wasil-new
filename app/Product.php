@@ -27,6 +27,7 @@ class Product extends Model implements HasMedia
     protected $fillable = [
         'name',
         'price',
+        'status',
         'cost_price',
         'created_at',
         'updated_at',
@@ -42,6 +43,11 @@ class Product extends Model implements HasMedia
     public function productOrders()
     {
         return $this->hasMany(Order::class, 'product_id', 'id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', '=', 1);
     }
 
     public function categories()

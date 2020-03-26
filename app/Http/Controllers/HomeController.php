@@ -30,24 +30,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $hot_products = ProductTag::all()->first()->tagProducts()->get();
-        $top_products = Product::paginate(9);
+        $hot_products = ProductTag::all()->first()->tagProducts()->active()->get();
+        $top_products = Product::active()->paginate(9);
 
         return view('home.index', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
     }
 
     public function terms()
     {
-        $hot_products = ProductTag::all()->first()->tagProducts()->get();
-        $top_products = Product::paginate(9);
+        $hot_products = ProductTag::all()->first()->tagProducts()->active()->get();
+        $top_products = Product::active()->paginate(9);
 
         return view('home.terms', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
     }
 
     public function about()
     {
-        $hot_products = ProductTag::all()->first()->tagProducts()->get();
-        $top_products = Product::paginate(9);
+        $hot_products = ProductTag::all()->first()->tagProducts()->active()->get();
+        $top_products = Product::active()->paginate(9);
 
         return view('home.about', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
     }
@@ -61,8 +61,8 @@ class HomeController extends Controller
 
     public function services()
     {
-        $hot_products = ProductTag::all()->first()->tagProducts()->get();
-        $top_products = Product::paginate(9);
+        $hot_products = ProductTag::all()->first()->tagProducts()->active()->get();
+        $top_products = Product::active()->paginate(9);
 
         return view('home.services', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
     }
@@ -79,7 +79,7 @@ class HomeController extends Controller
     public function category($cid)
     {
         $category = ProductCategory::findOrFail($cid);
-        $top_products = $category->categoryProducts()->paginate(9);
+        $top_products = $category->categoryProducts()->active()->paginate(9);
        
         $message = $category->name;
 
@@ -118,8 +118,8 @@ class HomeController extends Controller
 
     public function getCustomerInfo()
     {
-        $hot_products = ProductTag::all()->first()->tagProducts()->get();
-        $top_products = Product::paginate(9);
+        $hot_products = ProductTag::all()->first()->tagProducts()->active()->get();
+        $top_products = Product::active()->paginate(9);
 
         return view('home.customer-info', ['categories'=> ProductCategory::all(), 'hot_products' => $hot_products, 'top_products' => $top_products]);
     
@@ -211,7 +211,7 @@ class HomeController extends Controller
 
         session()->put('customer', $customer);
 
-        $hot_products = ProductTag::all()->first()->tagProducts()->get();
+        $hot_products = ProductTag::all()->first()->tagProducts()->active()->get();
 
         return view('home.invoice', ['totals' =>$totals, 'categories'=> ProductCategory::all(), 'hot_products' => $hot_products]);
     
@@ -225,7 +225,7 @@ class HomeController extends Controller
        $top_products = Product::query()
         ->where('name', 'LIKE', "%{$keyword}%") 
         ->orWhere('description', 'LIKE', "%{$keyword}%") 
-        ->paginate(9);
+        ->active()->paginate(9);
 
         $message = null;
         $error = null;
