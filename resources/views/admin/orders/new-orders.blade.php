@@ -240,7 +240,7 @@
 { data: 'customer_name', name: 'customer.name' },
 { data: 'customer.phone', name: 'customer.phone' },
 { data: 'product_name', name: 'product.name' },
-{ data: 'product.price', name: 'product.price' },
+{ data: 'price', name: 'price' },
 { data: 'quantity', name: 'quantity' },
 
 { data: 'salesmen_name', name: 'salesmen.name' , render: function(data){

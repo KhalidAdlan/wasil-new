@@ -103,10 +103,10 @@
                    {{$item->quantity}}
                </td>
                <td>
-                   {{$item->product->price}}
+                   {{$item->price}}
                </td>
                <td>
-                   {{$item->product->price * $item->quantity}}
+                   {{$item->price * $item->quantity}}
                </td>
 
            </tr>
@@ -163,10 +163,10 @@
                    {{$item->quantity}}
                </td>
                <td>
-                   {{$item->product->price}}
+                   {{$item->price}}
                </td>
                <td>
-                   {{$item->product->price * $item->quantity}}
+                   {{$item->price * $item->quantity}}
                </td>
                <td>
                    <form method="POST" action="{{route('admin.order.delete',$item->id)}}" enctype="multipart/form-data">
@@ -219,10 +219,10 @@
                    {{$item->quantity}}
                </td>
                <td>
-                   {{$item->product->price}}
+                   {{$item->price}}
                </td>
                <td>
-                   {{$item->product->price * $item->quantity}}
+                   {{$item->price * $item->quantity}}
                </td>
 
            </tr>

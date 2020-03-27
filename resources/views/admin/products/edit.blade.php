@@ -14,8 +14,8 @@
                 <label class="required" for="status">{{ trans('cruds.product.fields.status') }}</label>
                 
                 <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}"  name="status" id="status" value="{{ old('status', $product->status) }}" required>
-                   <option value='1'>ON</option>
-                   <option value='0'>OFF</option>
+                   <option value='1' {{$product->status == 1? 'selected' : ''}}>ON</option>
+                   <option value='0' {{$product->status == 0? 'selected' : ''}}>OFF</option>
                 </select>
                 @if($errors->has('status'))
                     <span class="text-danger">{{ $errors->first('status') }}</span>

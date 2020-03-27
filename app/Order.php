@@ -23,6 +23,7 @@ class Order extends Model
         'status',
         'product_id',
         'quantity',
+        'price',
         'line_id',
         'created_at',
         'updated_at',

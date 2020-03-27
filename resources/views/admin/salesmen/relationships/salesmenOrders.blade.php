@@ -106,13 +106,13 @@
                                     {{ $order->quantity ?? ''}}
                                 </td>
                                 <td>
-                                    {{ $order->product->price ?? '' }}
+                                    {{ $order->price ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $order->quantity * $order->product->price }}
+                                    {{ $order->quantity * $order->price }}
                                 </td>
                                 <td>
-                                {{ ($order->product->price - $order->product->cost_price) * $order->quantity * \App\Salesman::find($order->salesmen_id)->commission /100}}
+                                {{ ($order->price - $order->product->cost_price) * $order->quantity * \App\Salesman::find($order->salesmen_id)->commission /100}}
 
                                 </td>
                                

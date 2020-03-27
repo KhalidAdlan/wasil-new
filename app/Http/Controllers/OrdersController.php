@@ -36,9 +36,12 @@ class OrdersController extends Controller
 
         foreach($cart as $item)
         {
+            $product = Product::find($item['id']);
+
             $orderEntry = [
                 'customer_id'    => $customer->id,
                 'status'         => 'جديد',
+                'price'          => $product->price,
                 'invoice_number' => $invoiceNumber,
                 'quantity'       => $item['quantity'],
                 'product_id'     => $item['id'],
