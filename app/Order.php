@@ -58,7 +58,7 @@ class Order extends Model
             try{
             $product = Product::find($order->product_id);
 
-           $total += ($product->price * $order->quantity);
+           $total += ($order->price * $order->quantity);
             }
             catch(\Exception $e)
             {
