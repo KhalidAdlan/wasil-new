@@ -69,6 +69,8 @@
 <div class="tab-content" id="nav-tabContent">
     
    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+   <span class="float-right px-3"><button class="btn btn-primary" data-toggle='modal' data-target='#waitingProducts'>Waiting Products (Info) <span class="badge">{{$waitingProducts->count()}}</span></button></span>
+
    <table class="table table-striped">
            <thead>
                <th>Customer</th>
@@ -117,7 +119,7 @@
    </div>
 
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-  <span class="float-right px-3"><button class="btn btn-primary" data-toggle='modal' data-target='#waitingProducts'>Waiting Products (Info) <span class="badge">{{$waitingProducts->count()}}</span></button></span>
+  <span class="float-right px-3"><button class="btn btn-primary" data-toggle='modal' data-target='#shippedProducts'>On The Way Products (Info) <span class="badge">{{$shippedProducts->count()}}</span></button></span>
 
   <table class="table table-striped">
            <thead>
@@ -186,11 +188,11 @@
 
 
 
-<div class="modal fade" id="waitingProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="shippedProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Waiting Products</h5>
+        <h5 class="modal-title" id="exampleModalLabel">On The Way Products</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -203,6 +205,53 @@
               {{now()}}
           </h6>
           <input class="btn btn-xs btn-primary float-right" type="submit" value="Print" onclick='printDiv();'></input>
+          <br>
+      <table class="table table-bordered">
+           <thead>
+               <td>Product</td>
+               <td>Quantity</td>
+               <td>Price</td>
+               <td>Total</td>
+               <th></th>
+
+           </thead>
+           <tbody>
+               @foreach($shippedProducts as $shippedProduct)
+               <tr>
+                 <td>{{(\App\Product::find($shippedProduct[0]->product_id))['name']}}</td>
+                 <td>{{ $shippedProduct->sum(function($order){return $order['quantity'];})}}</td>
+                 <td>{{$shippedProduct[0]->price}}</td>
+                 <td>{{$shippedProduct->sum(function($order){return $order['quantity'];}) * $shippedProduct[0]->price}}</td>
+                 <td></td>            
+                </tr>
+               @endforeach
+           </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="waitingProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Waiting Products</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id='DivIdToPrintWaiting' class="modal-body">
+          <h2>
+              {{$line->number}} | {{$line->driver->name}}
+          </h2>
+          <h6>
+              {{now()}}
+          </h6>
+          <input class="btn btn-xs btn-primary float-right" type="submit" value="Print" onclick='printDivWaiting();'></input>
           <br>
       <table class="table table-bordered">
            <thead>
@@ -231,8 +280,9 @@
       </div>
     </div>
   </div>
-</div>
-  </div>
+
+
+
 
   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
   <table class="table table-striped">
@@ -297,6 +347,32 @@
 {
 
   var divToPrint=document.getElementById('DivIdToPrint');
+
+  var newWin=window.open('','Print-Window');
+
+  newWin.document.open();
+  var css = '' +
+        '<style type="text/css">' +
+        'table th, table td {' +
+        'border:1px solid #000;' +
+        'padding:0.5em;' +
+        '}' +
+        '</style>';
+
+  newWin.document.write('<html>'+css+'<body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+  newWin.document.close();
+
+  setTimeout(function(){newWin.close();},10);
+
+}
+
+
+
+function printDivWaiting() 
+{
+
+  var divToPrint=document.getElementById('DivIdToPrintWaiting');
 
   var newWin=window.open('','Print-Window');
 

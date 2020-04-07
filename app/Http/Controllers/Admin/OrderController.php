@@ -177,7 +177,6 @@ class OrderController extends Controller
         }
 
         $query = Order::with(['customer', 'product', 'salesmen'])->where('status','جديد')->select(sprintf('%s.*', (new Order)->table));
-dd($query);
 
         $availableLines = Line::availableLines();
 

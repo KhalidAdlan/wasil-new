@@ -100,12 +100,14 @@ class LineController extends Controller
         abort_if(Gate::denies('line_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $waitingOrders = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('invoice_number');
-        $waitingProducts = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('product_id');
+        $shippedProducts = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('product_id');
+        $waitingProducts = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('product_id');
+
         $shippedOrders = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('invoice_number');
         $deliveredOrders = \App\Order::all()->where('line_id',$line->id)->where('status','تم التوصيل')->groupBy('invoice_number');
         $line->load('driver');
 
-        return view('admin.lines.show', ['line' => $line, 'waitingProducts' => $waitingProducts , 'waitingOrders' => $waitingOrders, 'shippedOrders' => $shippedOrders, 'deliveredOrders' => $deliveredOrders]);
+        return view('admin.lines.show', ['line' => $line, 'shippedProducts' => $shippedProducts, 'waitingProducts' => $waitingProducts , 'waitingOrders' => $waitingOrders, 'shippedOrders' => $shippedOrders, 'deliveredOrders' => $deliveredOrders]);
     }
 
     public function destroy(Line $line)
