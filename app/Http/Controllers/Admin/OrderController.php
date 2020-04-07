@@ -176,6 +176,9 @@ class OrderController extends Controller
             return $table->make(true);
         }
 
+        $query = Order::with(['customer', 'product', 'salesmen'])->where('status','جديد')->select(sprintf('%s.*', (new Order)->table));
+dd($query);
+
         $availableLines = Line::availableLines();
 
         $waitingLinesCount = DB::table('orders')->where('status','انتظار')->distinct('line_id')->count();
