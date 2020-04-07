@@ -95,7 +95,22 @@
                    <h6>{{$order[0]->customer->address}}</h6>
                    <div class="text-center" style="border: 1px solid black; border-radius:5px"> {{$order[0]->total()}}</div>
                    
-       
+                   
+        
+        <hr>
+        <div class="row">
+        <form method="POST" class="float-right p-2" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+            @csrf
+            
+            <input type="text" hidden name="line" value="{{$order[0]->line_id}}"></input>
+
+            <input type="text" hidden name="invoice_number" value="{{$order[0]->invoice_number}}"></input>
+            <input type="text" hidden name="state" value='مؤجل'></input>
+
+             
+            <input type="submit" class="btn btn-xs  btn-default"  value="Delay"></input>
+
+        </form>
                </td>
             @endif
                <td>
@@ -146,7 +161,7 @@
                    <h6>{{$order[0]->customer->address}}</h6>
                    <div class="text-center" style="border: 1px solid black; border-radius:5px"> {{$order[0]->total()}}</div>
 
-                   <form method="POST" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+         <form method="POST" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
             @csrf
             
             <input type="text" hidden name="line" value="{{$order[0]->line_id}}"></input>
@@ -158,6 +173,33 @@
             <input type="submit" class="btn btn-xs  btn-primary" style="color:white" value="Finish!"></input>
 
         </form>
+        <hr>
+        <div class="row">
+        <form method="POST" class="float-right p-2" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+            @csrf
+            
+            <input type="text" hidden name="line" value="{{$order[0]->line_id}}"></input>
+
+            <input type="text" hidden name="invoice_number" value="{{$order[0]->invoice_number}}"></input>
+            <input type="text" hidden name="state" value="انتظار"></input>
+
+            
+            <input type="submit" class="btn btn-xs  btn-default"  value="<- Waiting"></input>
+
+        </form>
+        <form method="POST" class="float-right p-2" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+            @csrf
+            
+            <input type="text" hidden name="line" value="{{$order[0]->line_id}}"></input>
+
+            <input type="text" hidden name="invoice_number" value="{{$order[0]->invoice_number}}"></input>
+            <input type="text" hidden name="state" value='مؤجل'></input>
+
+             
+            <input type="submit" class="btn btn-xs  btn-default"  value="Delay"></input>
+
+        </form>
+</div>
                </td>
             @endif
                <td>

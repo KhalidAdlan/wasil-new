@@ -112,7 +112,7 @@ class OrderController extends Controller
     public function newOrders(Request $request)
     {
         if ($request->ajax()) {
-            $query = Order::with(['customer', 'product', 'salesmen'])->where('status','جديد')->select(sprintf('%s.*', (new Order)->table));
+            $query = Order::with(['customer', 'product', 'salesmen'])->where('status','جديد')->orWhere('status','مؤجل')->select(sprintf('%s.*', (new Order)->table));
             $table = Datatables::of($query);
 
 
