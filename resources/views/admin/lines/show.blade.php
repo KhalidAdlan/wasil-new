@@ -185,7 +185,7 @@
         @endforeach
          @endforeach
        </table>
-
+</div>
 
 
 <div class="modal fade" id="shippedProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
