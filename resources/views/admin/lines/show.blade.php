@@ -233,55 +233,10 @@
       </div>
     </div>
   </div>
+</div>
 
 
-  <div class="modal fade" id="waitingProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">Waiting Products</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div id='DivIdToPrintWaiting' class="modal-body">
-          <h2>
-              {{$line->number}} | {{$line->driver->name}}
-          </h2>
-          <h6>
-              {{now()}}
-          </h6>
-          <input class="btn btn-xs btn-primary float-right" type="submit" value="Print" onclick='printDivWaiting();'></input>
-          <br>
-      <table class="table table-bordered">
-           <thead>
-               <td>Product</td>
-               <td>Quantity</td>
-               <td>Price</td>
-               <td>Total</td>
-               <th></th>
-
-           </thead>
-           <tbody>
-               @foreach($waitingProducts as $waitingProduct)
-               <tr>
-                 <td>{{(\App\Product::find($waitingProduct[0]->product_id))['name']}}</td>
-                 <td>{{ $waitingProduct->sum(function($order){return $order['quantity'];})}}</td>
-                 <td>{{$waitingProduct[0]->price}}</td>
-                 <td>{{$waitingProduct->sum(function($order){return $order['quantity'];}) * $waitingProduct[0]->price}}</td>
-                 <td></td>            
-                </tr>
-               @endforeach
-           </tbody>
-       </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-
-
+  
 
 
   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -341,6 +296,60 @@
     </div>
     
 </div>
+
+
+
+
+
+
+<div class="modal fade" id="waitingProducts" tabindex="-1" role="dialog" aria-labelledby="waitingProducts" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="waitingProducts">Waiting Products</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id='DivIdToPrintWaiting' class="modal-body">
+          <h2>
+              {{$line->number}} | {{$line->driver->name}}
+          </h2>
+          <h6>
+              {{now()}}
+          </h6>
+          <input class="btn btn-xs btn-primary float-right" type="submit" value="Print" onclick='printDivWaiting();'></input>
+          <br>
+      <table class="table table-bordered">
+           <thead>
+               <td>Product</td>
+               <td>Quantity</td>
+               <td>Price</td>
+               <td>Total</td>
+               <th></th>
+
+           </thead>
+           <tbody>
+               @foreach($waitingProducts as $waitingProduct)
+               <tr>
+                 <td>{{(\App\Product::find($waitingProduct[0]->product_id))['name']}}</td>
+                 <td>{{ $waitingProduct->sum(function($order){return $order['quantity'];})}}</td>
+                 <td>{{$waitingProduct[0]->price}}</td>
+                 <td>{{$waitingProduct->sum(function($order){return $order['quantity'];}) * $waitingProduct[0]->price}}</td>
+                 <td></td>            
+                </tr>
+               @endforeach
+           </tbody>
+       </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
     function printDiv() 
