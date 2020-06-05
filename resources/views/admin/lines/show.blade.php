@@ -111,6 +111,19 @@
             <input type="submit" class="btn btn-xs  btn-default"  value="Delay"></input>
 
         </form>
+        <form method="POST" class="float-right p-2" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+            @csrf
+            
+            <input type="text" hidden name="line" value="{{$order[0]->line_id}}"></input>
+
+            <input type="text" hidden name="invoice_number" value="{{$order[0]->invoice_number}}"></input>
+            <input type="text" hidden name="state" value='ملغية'></input>
+
+             
+            <input type="submit" class="btn btn-xs  btn-danger"  value="Delete"></input>
+
+        </form>
+        <button class='btn btn-success btn-xs' data-orderid='{{$order[0]->invoice_number}}'  data-toggle='modal' data-target='#pickup'>Pickup</button>
                </td>
             @endif
                <td>
@@ -199,6 +212,21 @@
             <input type="submit" class="btn btn-xs  btn-default"  value="Delay"></input>
 
         </form>
+        <form method="POST" class="float-right p-2" action="{{ route("admin.order.change.state") }}" enctype="multipart/form-data">
+            @csrf
+            
+            <input type="text" hidden name="line" value="{{$order[0]->line_id}}"></input>
+
+            <input type="text" hidden name="invoice_number" value="{{$order[0]->invoice_number}}"></input>
+            <input type="text" hidden name="state" value='ملغية'></input>
+
+             
+            <input type="submit" class="btn btn-xs  btn-danger"  value="Delete"></input>
+
+        </form>
+
+        <button class='btn btn-success btn-xs' data-orderid='{{$order[0]->invoice_number}}'  data-toggle='modal' data-target='#pickup'>Pickup</button>
+
 </div>
                </td>
             @endif
@@ -392,6 +420,38 @@
 </div>
 
 
+<div class="modal fade" id="pickup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Pick Up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="POST" action="{{ route("admin.order.pickup") }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <select name="line">
+                    @foreach($lines as $line)
+                      <option value="{{$line->id}}">{{$line->number}} ({{$line->driver->name}})</option>
+                    @endforeach
+                </select>
+            </div>
+            <input name="invoice_number" hidden id="modal_invoice_number" class="invoice_number" type="text"/>
+            <input type="submit" class="btn btn-primary" value="Save changes"></input>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
     function printDiv() 
@@ -443,6 +503,16 @@ function printDivWaiting()
   setTimeout(function(){newWin.close();},10);
 
 }
+
+
+
+$('#pickup').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var orderId = button.data('orderid') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  $('#modal_invoice_number').val(orderId)
+})
     </script>
 
 

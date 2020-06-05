@@ -102,12 +102,13 @@ class LineController extends Controller
         $waitingOrders = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('invoice_number');
         $shippedProducts = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('product_id');
         $waitingProducts = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('product_id');
+        $availableLines = Line::availableLines();
 
         $shippedOrders = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('invoice_number');
         $deliveredOrders = \App\Order::all()->where('line_id',$line->id)->where('status','تم التوصيل')->groupBy('invoice_number');
         $line->load('driver');
 
-        return view('admin.lines.show', ['line' => $line, 'shippedProducts' => $shippedProducts, 'waitingProducts' => $waitingProducts , 'waitingOrders' => $waitingOrders, 'shippedOrders' => $shippedOrders, 'deliveredOrders' => $deliveredOrders]);
+        return view('admin.lines.show', ['lines'=> $availableLines, 'line' => $line, 'shippedProducts' => $shippedProducts, 'waitingProducts' => $waitingProducts , 'waitingOrders' => $waitingOrders, 'shippedOrders' => $shippedOrders, 'deliveredOrders' => $deliveredOrders]);
     }
 
     public function destroy(Line $line)

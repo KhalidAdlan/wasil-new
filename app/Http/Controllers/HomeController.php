@@ -185,7 +185,7 @@ class HomeController extends Controller
             $total += $item['quantity'] * $item['price'];
         }
 
-        $delivery = 100;
+        $delivery = 200;
 
         if($state=="other")
         {
