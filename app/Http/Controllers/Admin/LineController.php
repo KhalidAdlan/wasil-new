@@ -101,6 +101,24 @@ class LineController extends Controller
 
         $waitingOrders = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('invoice_number');
         $shippedProducts = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('product_id');
+
+        $waitingOrdersTotal = 0;
+        $shippedOrdersTotal = 0;
+
+            foreach($waitingOrders as $order)
+            {
+              foreach($order as $item)
+                $waitingOrdersTotal += ($item->price * $item->quantity);
+            }
+
+            foreach($shippedProducts as $order)
+            {
+              foreach($order as $item)
+                $shippedOrdersTotal += ($item->price * $item->quantity);
+            }
+        
+        
+
         $waitingProducts = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('product_id');
         $availableLines = Line::availableLines();
 
@@ -108,7 +126,7 @@ class LineController extends Controller
         $deliveredOrders = \App\Order::all()->where('line_id',$line->id)->where('status','تم التوصيل')->groupBy('invoice_number');
         $line->load('driver');
 
-        return view('admin.lines.show', ['lines'=> $availableLines, 'line' => $line, 'shippedProducts' => $shippedProducts, 'waitingProducts' => $waitingProducts , 'waitingOrders' => $waitingOrders, 'shippedOrders' => $shippedOrders, 'deliveredOrders' => $deliveredOrders]);
+        return view('admin.lines.show', ['shippedOrdersTotal' => $shippedOrdersTotal, 'waitingOrdersTotal' => $waitingOrdersTotal,'lines'=> $availableLines, 'line' => $line, 'shippedProducts' => $shippedProducts, 'waitingProducts' => $waitingProducts , 'waitingOrders' => $waitingOrders, 'shippedOrders' => $shippedOrders, 'deliveredOrders' => $deliveredOrders]);
     }
 
     public function destroy(Line $line)

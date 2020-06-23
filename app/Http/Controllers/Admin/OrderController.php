@@ -275,7 +275,7 @@ class OrderController extends Controller
             $line = Line::find($request->all()['line']);
             $state = $request->all()['state'];
     
-            $orders = Order::all()->where('status','!=', $state)->where('line_id',$line->id);
+            $orders = Order::all()->where('deleted_at', '=', null)->where('status','!=', $state)->where('line_id',$line->id);
     
             foreach($orders as $order)
             {

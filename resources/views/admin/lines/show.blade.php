@@ -143,6 +143,11 @@
            @endif
         @endforeach
          @endforeach
+         <tr>
+             <td colspan="5" class="center">
+                 Total: #{{$waitingOrdersTotal}}# SDG
+             </td>
+         </tr>
        </table>
    </div>
 
@@ -254,6 +259,11 @@
            @endif
         @endforeach
          @endforeach
+         <tr>
+             <td colspan="5" class="center">
+                 Total: #{{$shippedOrdersTotal}}# SDG
+             </td>
+         </tr>
        </table>
 </div>
 
@@ -451,7 +461,13 @@
   </div>
 </div>
 
-
+<style>
+    .center{
+text-align:center;
+font-size: 25px;
+font-weight:bold;
+}
+</style>
 
 <script>
     function printDiv() 
