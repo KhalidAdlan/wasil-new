@@ -99,8 +99,8 @@ class LineController extends Controller
     {
         abort_if(Gate::denies('line_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $waitingOrders = \App\Order::all()->where('line_id',$line->id)->where('status','انتظار')->groupBy('invoice_number');
-        $shippedProducts = \App\Order::all()->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('product_id');
+        $waitingOrders = \App\Order::all()->where('deleted_at','=', null)->where('line_id',$line->id)->where('status','انتظار')->groupBy('invoice_number');
+        $shippedProducts = \App\Order::all()->where('deleted_at','=', null)->where('line_id',$line->id)->where('status','تم الشحن')->groupBy('product_id');
 
         $waitingOrdersTotal = 0;
         $shippedOrdersTotal = 0;
